@@ -1,5 +1,4 @@
 class DevicesController < ApplicationController
-  before_filter :signed_in_person?
   
   def create
     @person = Person.find(session[:person_id])

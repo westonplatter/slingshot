@@ -1,25 +1,14 @@
 class PeopleController < ApplicationController
 
-
   # GET /people
   # GET /people.json
   def index
-    unless current_person
-      redirect_to :root and return
-    end
-
     redirect_to person_path(current_person)
   end
-
 
   # GET /people/1
   # GET /people/1.json
   def show
-    
-    unless current_person
-      redirect_to :root and return
-    end
-
     @person = Person.find(session[:person_id])
 
     respond_to do |format|
@@ -60,7 +49,6 @@ class PeopleController < ApplicationController
     end
   end
 
-
   # PUT /people/1
   # PUT /people/1.json
   def update
@@ -89,17 +77,13 @@ class PeopleController < ApplicationController
     end
   end
 
-  
   # pulls the 'vpn' view to update the person's VPN info
   def vpn
     edit # @person = Person.find(params[:id])
   end
-
   
   # pulls the 'location' view to update the person's location info
   def region
     edit # @person = Person.find(params[:id])
   end
-
-
 end
