@@ -141,7 +141,7 @@ function testPassword(password){
 	 <div class="field">
 	 		<br/>
 	    <%= "VPN Password" %><br/>
-	    <%= f.text_field :vpn_password %>
+	    <%= f.text_field :vpn_password, :onChange => "testPassword(this.value);"%>
 	    <br/>
 	    <br/>
 	  </div>
