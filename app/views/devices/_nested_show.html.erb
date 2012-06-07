@@ -1,18 +1,18 @@
 <h2>Devices</h2>
 <table>
 <tr>
-	<th width="200" align="left">Type</th>
-	<th width="125" align="left">Add More Info</th>
-	<th width="125" align="left">Delete</th>
+	<th width="100" align="left"></th>
+	<th width="125" align="left"></th>
+	<th width="125" align="left"></th>
 </tr>
 
 <% @person.devices.each do |device| %>
 	<tr>
 		<td><%= device.name %></td>
-		<td><%= link_to 'more info', [device.person, device],
+		<td><%= link_to 'Edit Device', [device.person, device],
 				:get => :show %>
 		</td>
-		<td><%= button_to 'delete', [device.person, device], 
+		<td><%= button_to 'Delete', [device.person, device], 
 				:confirm 	=> 'Sure you want to delete device?',
 				:method 	=> :delete %>
 		</td>
