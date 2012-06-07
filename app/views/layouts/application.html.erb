@@ -9,7 +9,9 @@
 <body>
 
 <% unless session[:person_id].nil? %>
-	<%= link_to "My Profile Homepage", person_path(current_person)%> | <%= link_to "Logout", "/auth/logout" %>
+	<%= link_to "My Profile Homepage", person_path(current_person)%> | 
+	<%= link_to "Logout", "/auth/logout" %> |
+	<a href="mailto:<%= EMAIL_HELP %>">Need Help?</a>
 <% end %>
 
 
