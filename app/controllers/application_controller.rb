@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :authenticate
-
   def authenticate
     unless current_person
       redirect_to :root
