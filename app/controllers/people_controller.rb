@@ -42,7 +42,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to :action => 'index', notice: 'Person was successfully created.' }
+        format.html { redirect_to :action => 'show', notice: 'Person was successfully created.' }
         format.json { render json: @person, status: :created, location: @person }
       else
         format.html { render action: "new" }
@@ -61,7 +61,7 @@ class PeopleController < ApplicationController
         format.html { redirect_to @person, notice: 'Your info was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "show" }
+        format.html { redirect_to @person, notice: 'Changes were not saved.' }
         format.json { render json: @person.errors, status: :unprocessable_entity }
       end
     end

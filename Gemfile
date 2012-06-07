@@ -10,6 +10,7 @@ gem 'minitest'
 gem 'mysql2'
 gem 'formtastic'
 gem 'jquery-rails'
+gem 'client_side_validations'
 
 # authentication gems
 gem 'omniauth'
