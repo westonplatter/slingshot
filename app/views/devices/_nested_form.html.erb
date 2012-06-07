@@ -1,0 +1,14 @@
+<script type="text/css">
+</script>
+
+
+<div name="add-device">
+	<%= form_for([@person, @person.devices.build]) do |f| %>
+	  <div class="field">
+	     <%= f.label "Device Type  " %><%= f.select :name, ["Laptop", "Tablet", "Phone", "iPod/MP3", "Other"] %>
+	  </div>
+	  <div class="actions">
+	    <%= f.submit %>
+	  </div>
+	<% end %>
+</div>

@@ -1,0 +1,21 @@
+<h2>Edit VPN Password</h2>
+
+<p>VPN password <b><u>must contain 3 of the 4</u></b> following,
+	<ul>
+		<li>rule 1</li>
+		<li>rule 2</li>
+		<li>rule 3</li>
+		<li>rule 4</li>
+	</ul>
+</p>
+
+<%= semantic_form_for @person do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :vpn_password, :as => :string %>
+  <% end %>
+  <%= f.actions %>
+<% end %>
+
+
+<%= link_to 'Show', @person %> |
+<%= link_to 'Back', people_path %>  

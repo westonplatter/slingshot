@@ -1,0 +1,83 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <font size="20">Hi <%= @person.firstname %>!</font>
+</h1>
+<hr/>
+
+
+<!-- ====================================================================== -->
+<!-- DISPLAY PERSON ATTRIBUTES -->
+<h2>Person Info</h2>
+<p>
+  <b>Firstname:</b>
+  <%= @person.firstname %>
+</p>
+<p>
+  <b>Lastname:</b>
+  <%= @person.lastname %>
+</p>
+<p>
+  <b>Cell:</b>
+  <%= @person.cell %>
+</p>
+<p>
+  <b>Email:</b>
+  <%= @person.email %>
+</p>
+<p>
+  <%= link_to 'Edit My Info', edit_person_path(@person) %>
+</p>
+<br/>
+
+
+
+<hr>
+<!-- ====================================================================== -->
+<!-- VPN SETUP FORM-->
+  
+<% if @person.vpn_password.nil? || @person.vpn_password == "" %>
+  <div class="warning">
+    <p>No password</p>
+  </div>
+<% end %>
+
+<h2>VPN Info</h2>
+<p>
+  <b>VPN password:</b> <%= @person.vpn_password %>
+</p>
+<p>
+  <%= link_to 'Edit VPN Password', "/person/#{current_person.id}/vpn" %>
+</p>
+<br/>
+
+
+<hr>
+<!-- ====================================================================== -->
+<!-- IN COUNTRY LOCATION CONFIRMATION -->
+<% if @person.region == nil || @person.region == "" %>
+  <div class="warning">
+    <p>No region Info</p>  
+  </div>
+<% end %>
+
+<h2>Region Info</h2>
+<p>
+  <b>Region:</b> <%= @person.region %>
+</p>
+<%= link_to 'Edit Region', "/person/#{current_person.id}/region" %>
+<br/>
+<br/>
+
+
+
+<hr>
+<!-- ====================================================================== -->
+<!-- LIST DEVICES -->
+<%= render "devices/nested_show" %>
+<br>
+<!-- ====================================================================== -->
+<!-- ADD DEVICE -->
+<%= render "devices/nested_form" %>
+
+

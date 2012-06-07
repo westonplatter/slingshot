@@ -1,0 +1,1368 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <title>
+      Statistics
+    </title>
+    <link href='style.css' rel='stylesheet' type='text/css' />
+    <link href='jquery.jqplot.min.css' rel='stylesheet' type='text/css' />
+    <meta content='text/html; charset=UTF-8' http-equiv='content-type' />
+    <script src='jquery.js' type='text/javascript'></script>
+    <script src='jquery.jqplot.min.js' type='text/javascript'></script>
+    <script src='jqplot.cursor.min.js' type='text/javascript'></script>
+    <script src='jquery.tablesorter.js' type='text/javascript'></script>
+    <script src='jqplot.dateAxisRenderer.min.js' type='text/javascript'></script>
+    <script src='jqplot.canvasTextRenderer.min.js' type='text/javascript'></script>
+    <script src='jqplot.canvasAxisTickRenderer.min.js' type='text/javascript'></script>
+    <script src='jqplot.canvasAxisLabelRenderer.min.js' type='text/javascript'></script>
+  </head>
+  <body>
+    <script type='text/javascript'>
+      //<![CDATA[
+        $.tablesorter.addParser({
+          id: 'size',
+          is: function(s) {
+              return false;
+          },
+          format: function(s) {
+              return $.tablesorter.formatFloat(s.replace(/k/,'000').replace(/M/,'000000').replace(/G/,'000000000'));
+          },
+          type: 'numeric'
+        });
+        
+        $(document).ready(function() {
+          $(".toggleable").hide();
+          $(".toggle").click(function() {
+            $(this).toggleClass("active").next().slideToggle("slow");
+            return false;
+          });
+        });
+        
+        var jqplot_zoom_reset = function(evt, p, cursor) {
+          for(var i = 0;i < p.series.length;i++) {
+            p.series[i].showMarker = false;
+            p.series[i].markerOptions.show = false;
+            p.series[i].markerRenderer.show = false;
+          }
+        
+          p.redraw();
+        };
+        
+        var jqplot_zoom = function(evt, gridpos, datapos, p, cursor) {
+          var min = p.axes['xaxis'].min;
+          var max = p.axes['xaxis'].max;
+        
+          var maxaxis = {
+            yaxis: null,
+            y2axis: null,
+            y3axis: null,
+            y4axis: null,
+            y5axis: null,
+            y6axis: null,
+            y7axis: null,
+            y8axis: null,
+            y9axis: null
+          };
+        
+          var cnt = [];
+        
+          var maxlen = 0;
+          for(var i = 0;i < p.series.length;i++) {
+            var len = p.series[i].data.length;
+            if(len > maxlen)
+              maxlen = len;
+            cnt[i] = 0;
+          }
+        
+          for(var i = 0;i < maxlen;i++) {
+            for(var j = 0;j < p.series.length;j++) {
+              if(i < p.series[j].data.length) {
+                if((p.series[j].data[i][0] >= min) && (p.series[j].data[i][0] <= max)) {
+                  cnt[j]++;
+                  if(maxaxis[p.series[j].yaxis] == null)
+                    maxaxis[p.series[j].yaxis] = p.series[j].data[i][1];
+                  else if(p.series[j].data[i][1] > maxaxis[p.series[j].yaxis])
+                    maxaxis[p.series[j].yaxis] = p.series[j].data[i][1];
+                }
+              }
+            }
+          }
+        
+          for(var i = 0;i < p.series.length;i++) {
+            p.series[i].showMarker = cnt[i] <= 100;
+            p.series[i].markerOptions.show = cnt[i] <= 100;
+            p.series[i].markerRenderer.show = cnt[i] <= 100;
+          }
+        
+          for(var ax in maxaxis) {
+            if(maxaxis[ax] != null) {
+              p.axes[ax].max = maxaxis[ax] * p.axes[ax].pad;
+              p.axes[ax].tickInterval = null;
+              p.axes[ax].numberTicks = null;
+              p.axes[ax]._ticks = [];
+            }
+          }
+          p.redraw();
+        };
+      //]]>
+    </script>
+    <div id='menu'>
+      <ul>
+        <li class='first'>
+          <a href='index.html'>General</a>
+        </li>
+        <li>
+          <a href='activity.html'>Activity</a>
+        </li>
+        <li>
+          <a href='authors.html'>Authors</a>
+        </li>
+        <li>
+          <a href='files.html'>Files</a>
+        </li>
+        <li class='last'>
+          <a href='lines.html'>Lines</a>
+        </li>
+      </ul>
+    </div>
+    <div id='content'>
+      <div id='toc'>
+        <h2>
+          <a name='toc'>Blocks</a>
+        </h2>
+        <ul>
+          <li>
+            <a href='#lastweeks'>Last years weeks</a>
+          </li>
+          <li>
+            <a href='#hour_of_day'>Hour of day</a>
+          </li>
+          <li>
+            <a href='#day_of_week'>Day of week</a>
+          </li>
+          <li>
+            <a href='#hour_of_week'>Hour of week</a>
+          </li>
+          <li>
+            <a href='#commitchart'>Commitchart</a>
+          </li>
+          <li>
+            <a href='#commits_per_year'>Commits per year</a>
+          </li>
+          <li>
+            <a href='#commits_per_month'>Commits per month</a>
+          </li>
+          <li>
+            <a href='#commits_per_yearmonth'>Commits per year and month</a>
+          </li>
+        </ul>
+      </div>
+      <h2 class='blockheader'>
+        <a name='lastweeks'>Last years weeks</a>
+      </h2>
+      
+      <div id="block-lastweeks" class="blockcontainer">
+      <div class='blockdiagram'>
+        <img src='lastweeks.png' />
+      </div>
+      <a class='toggle' href='#'>Table</a>
+      <div class='blocktable toggleable'>
+        <table class='striped'>
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Commits</th>
+              <th>Files added</th>
+              <th>Files deleted</th>
+              <th>Lines added</th>
+              <th>Lines deleted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>1</th>
+              <td>2</td>
+              <td>2</td>
+              <td>1</td>
+              <td>64</td>
+              <td>819</td>
+            </tr>
+            <tr>
+              <th>2</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>3</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>4</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>5</th>
+              <td>2</td>
+              <td>25</td>
+              <td>1</td>
+              <td>1172</td>
+              <td>288</td>
+            </tr>
+            <tr>
+              <th>6</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>7</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>8</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>9</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>10</th>
+              <td>2</td>
+              <td>68</td>
+              <td>0</td>
+              <td>1578</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <th>11</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>12</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>13</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>14</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>15</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>16</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>17</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>18</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>19</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>20</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>21</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>22</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>23</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>24</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>25</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>26</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>27</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>28</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>29</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>30</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>31</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>32</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>33</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>34</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>35</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>36</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>37</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>38</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>39</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>40</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>41</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>42</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>43</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>44</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>45</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>46</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>47</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>48</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>49</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>50</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>51</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>52</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function() {
+            $("#hourofday_table").tablesorter({sortList: [[0, 0]]});
+          });
+        //]]>
+      </script>
+      <h2 class='blockheader'>
+        <a name='hour_of_day'>Hour of day</a>
+      </h2>
+      
+      <div id="block-hour_of_day" class="blockcontainer">
+      <div class='blockdiagram'>
+        <img src='commits_per_hour.png' />
+      </div>
+      <a class='toggle' href='#'>Table</a>
+      <div class='blocktable toggleable'>
+        <table class='tablesorter striped' id='hourofday_table'>
+          <thead>
+            <tr>
+              <th>Hour</th>
+              <th>Commits</th>
+              <th>Files added</th>
+              <th>Files deleted</th>
+              <th>Lines added</th>
+              <th>Lines deleted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>0</th>
+              <td>1</td>
+              <td>23</td>
+              <td>0</td>
+              <td>460</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <th>1</th>
+              <td>2</td>
+              <td>68</td>
+              <td>0</td>
+              <td>1578</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <th>2</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>3</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>4</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>5</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>6</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>7</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>8</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>9</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>10</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>11</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>12</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>13</th>
+              <td>1</td>
+              <td>2</td>
+              <td>1</td>
+              <td>712</td>
+              <td>286</td>
+            </tr>
+            <tr>
+              <th>14</th>
+              <td>1</td>
+              <td>2</td>
+              <td>1</td>
+              <td>26</td>
+              <td>776</td>
+            </tr>
+            <tr>
+              <th>15</th>
+              <td>1</td>
+              <td>0</td>
+              <td>0</td>
+              <td>38</td>
+              <td>43</td>
+            </tr>
+            <tr>
+              <th>16</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>17</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>18</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>19</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>20</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>21</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>22</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>23</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function() {
+            $("#dayofweek_table").tablesorter();
+          });
+        //]]>
+      </script>
+      <h2 class='blockheader'>
+        <a name='day_of_week'>Day of week</a>
+      </h2>
+      
+      <div id="block-day_of_week" class="blockcontainer">
+      <div class='blockdiagram'>
+        <img src='commits_per_wday.png' />
+      </div>
+      <a class='toggle' href='#'>Table</a>
+      <div class='blocktable toggleable'>
+        <table class='tablesorter striped' id='dayofweek_table'>
+          <thead>
+            <tr>
+              <th>Weekday</th>
+              <th>Commits</th>
+              <th>Files added</th>
+              <th>Files deleted</th>
+              <th>Lines added</th>
+              <th>Lines deleted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Mon</th>
+              <td>2</td>
+              <td>68</td>
+              <td>0</td>
+              <td>1578</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <th>Tue</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>Wed</th>
+              <td>2</td>
+              <td>25</td>
+              <td>1</td>
+              <td>1172</td>
+              <td>288</td>
+            </tr>
+            <tr>
+              <th>Thu</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>Fri</th>
+              <td>2</td>
+              <td>2</td>
+              <td>1</td>
+              <td>64</td>
+              <td>819</td>
+            </tr>
+            <tr>
+              <th>Sat</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>Sun</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <h2 class='blockheader'>
+        <a name='hour_of_week'>Hour of week</a>
+      </h2>
+      
+      <div id="block-hour_of_week" class="blockcontainer">
+      <div class='blocktable'>
+        <table>
+          <thead>
+            <tr>
+              <th>Weekday</th>
+              <th>0</th>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              <th>4</th>
+              <th>5</th>
+              <th>6</th>
+              <th>7</th>
+              <th>8</th>
+              <th>9</th>
+              <th>10</th>
+              <th>11</th>
+              <th>12</th>
+              <th>13</th>
+              <th>14</th>
+              <th>15</th>
+              <th>16</th>
+              <th>17</th>
+              <th>18</th>
+              <th>19</th>
+              <th>20</th>
+              <th>21</th>
+              <th>22</th>
+              <th>23</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Mon</th>
+              <td></td>
+              <td class='gradient-100'>2</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>Tue</th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>Wed</th>
+              <td class='gradient-50'>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class='gradient-50'>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>Thu</th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>Fri</th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class='gradient-50'>1</td>
+              <td class='gradient-50'>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>Sat</th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>Sun</th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <h2 class='blockheader'>
+        <a name='commitchart'>Commitchart</a>
+      </h2>
+      
+      <div id="block-commitchart" class="blockcontainer">
+      <div class='blockdiagram'>
+        <div id='commitchart' style='height:240px; width:640px'></div>
+      </div>
+      </div>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function(){
+            var line = [['2012-02-06', 2],['2012-03-14', 2],['2012-04-13', 2]];
+            var plot = $.jqplot('commitchart', [line], {
+              legend: {
+                show: true,
+                rowSpacing: '0',
+                location: 'nw',
+              },
+              axes: {
+                xaxis: {
+                  pad: 0,
+                  renderer: $.jqplot.DateAxisRenderer,
+                  tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                  tickOptions: {
+                    angle: 30
+                  }
+                },
+                yaxis: {
+                  label: 'Commits',
+                  min: 0,
+                  labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+                  tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                  tickOptions: {
+                    angle: 30,
+                    formatString: '%d'
+                  }
+                }
+              },
+              series: [
+                {
+                  label: 'Commits',
+                  showMarker: false
+                }
+              ],
+              cursor: {
+                show: true,
+                zoom: true,
+                looseZoom: false,
+                constrainZoomTo: 'x',
+                showTooltip: true,
+                tooltipLocation: 'sw',
+                showTooltipUnitPosition: false,
+                showTooltipDataPosition: true,
+                showVerticalLine: true,
+                tooltipFormatString: '<b>%2$s</b> %1$s: %3$s'
+              }
+            });
+          
+            plot.target.bind('jqplotZoom', jqplot_zoom);
+            plot.target.bind('jqplotResetZoom', jqplot_zoom_reset);
+          });
+        //]]>
+      </script>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function() {
+            $("#year_table").tablesorter({sortList: [[0, 1]]});
+          });
+        //]]>
+      </script>
+      <h2 class='blockheader'>
+        <a name='commits_per_year'>Commits per year</a>
+      </h2>
+      
+      <div id="block-commits_per_year" class="blockcontainer">
+      <div class='blockdiagram'>
+        <img src='commits_per_year.png' />
+      </div>
+      <a class='toggle' href='#'>Table</a>
+      <div class='blocktable toggleable'>
+        <table class='tablesorter striped' id='year_table'>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Commits</th>
+              <th>Files added</th>
+              <th>Files deleted</th>
+              <th>Lines added</th>
+              <th>Lines deleted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2012</td>
+              <td>6</td>
+              <td>95</td>
+              <td>2</td>
+              <td>2814</td>
+              <td>1108</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function() {
+            $("#month_table").tablesorter();
+          });
+        //]]>
+      </script>
+      <h2 class='blockheader'>
+        <a name='commits_per_month'>Commits per month</a>
+      </h2>
+      
+      <div id="block-commits_per_month" class="blockcontainer">
+      <div class='blockdiagram'>
+        <img src='commits_per_month.png' />
+      </div>
+      <a class='toggle' href='#'>Table</a>
+      <div class='blocktable toggleable'>
+        <table class='tablesorter striped' id='month_table'>
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Commits</th>
+              <th>Files added</th>
+              <th>Files deleted</th>
+              <th>Lines added</th>
+              <th>Lines deleted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Feb</td>
+              <td>2</td>
+              <td>68</td>
+              <td>0</td>
+              <td>1578</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>Mar</td>
+              <td>2</td>
+              <td>25</td>
+              <td>1</td>
+              <td>1172</td>
+              <td>288</td>
+            </tr>
+            <tr>
+              <td>Apr</td>
+              <td>2</td>
+              <td>2</td>
+              <td>1</td>
+              <td>64</td>
+              <td>819</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function() {
+            $("#yearmonth_table").tablesorter({sortList: [[0, 1]]});
+          });
+        //]]>
+      </script>
+      <h2 class='blockheader'>
+        <a name='commits_per_yearmonth'>Commits per year and month</a>
+      </h2>
+      
+      <div id="block-commits_per_yearmonth" class="blockcontainer">
+      <div class='blockdiagram'>
+        <img src='commits_per_yearmonth.png' />
+      </div>
+      <a class='toggle' href='#'>Table</a>
+      <div class='blocktable toggleable'>
+        <table class='tablesorter striped' id='yearmonth_table'>
+          <thead>
+            <tr>
+              <th>Year-Month</th>
+              <th>Commits</th>
+              <th>Files added</th>
+              <th>Files deleted</th>
+              <th>Lines added</th>
+              <th>Lines deleted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2012-02</td>
+              <td>2</td>
+              <td>68</td>
+              <td>0</td>
+              <td>1578</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2012-03</td>
+              <td>2</td>
+              <td>25</td>
+              <td>1</td>
+              <td>1172</td>
+              <td>288</td>
+            </tr>
+            <tr>
+              <td>2012-04</td>
+              <td>2</td>
+              <td>2</td>
+              <td>1</td>
+              <td>64</td>
+              <td>819</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+    </div>
+  </body>
+</html>

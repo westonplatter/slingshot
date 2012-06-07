@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <title>
+      Statistics
+    </title>
+    <link href='style.css' rel='stylesheet' type='text/css' />
+    <link href='jquery.jqplot.min.css' rel='stylesheet' type='text/css' />
+    <meta content='text/html; charset=UTF-8' http-equiv='content-type' />
+    <script src='jquery.js' type='text/javascript'></script>
+    <script src='jquery.jqplot.min.js' type='text/javascript'></script>
+    <script src='jqplot.cursor.min.js' type='text/javascript'></script>
+    <script src='jquery.tablesorter.js' type='text/javascript'></script>
+    <script src='jqplot.dateAxisRenderer.min.js' type='text/javascript'></script>
+    <script src='jqplot.canvasTextRenderer.min.js' type='text/javascript'></script>
+    <script src='jqplot.canvasAxisTickRenderer.min.js' type='text/javascript'></script>
+    <script src='jqplot.canvasAxisLabelRenderer.min.js' type='text/javascript'></script>
+  </head>
+  <body>
+    <script type='text/javascript'>
+      //<![CDATA[
+        $.tablesorter.addParser({
+          id: 'size',
+          is: function(s) {
+              return false;
+          },
+          format: function(s) {
+              return $.tablesorter.formatFloat(s.replace(/k/,'000').replace(/M/,'000000').replace(/G/,'000000000'));
+          },
+          type: 'numeric'
+        });
+        
+        $(document).ready(function() {
+          $(".toggleable").hide();
+          $(".toggle").click(function() {
+            $(this).toggleClass("active").next().slideToggle("slow");
+            return false;
+          });
+        });
+        
+        var jqplot_zoom_reset = function(evt, p, cursor) {
+          for(var i = 0;i < p.series.length;i++) {
+            p.series[i].showMarker = false;
+            p.series[i].markerOptions.show = false;
+            p.series[i].markerRenderer.show = false;
+          }
+        
+          p.redraw();
+        };
+        
+        var jqplot_zoom = function(evt, gridpos, datapos, p, cursor) {
+          var min = p.axes['xaxis'].min;
+          var max = p.axes['xaxis'].max;
+        
+          var maxaxis = {
+            yaxis: null,
+            y2axis: null,
+            y3axis: null,
+            y4axis: null,
+            y5axis: null,
+            y6axis: null,
+            y7axis: null,
+            y8axis: null,
+            y9axis: null
+          };
+        
+          var cnt = [];
+        
+          var maxlen = 0;
+          for(var i = 0;i < p.series.length;i++) {
+            var len = p.series[i].data.length;
+            if(len > maxlen)
+              maxlen = len;
+            cnt[i] = 0;
+          }
+        
+          for(var i = 0;i < maxlen;i++) {
+            for(var j = 0;j < p.series.length;j++) {
+              if(i < p.series[j].data.length) {
+                if((p.series[j].data[i][0] >= min) && (p.series[j].data[i][0] <= max)) {
+                  cnt[j]++;
+                  if(maxaxis[p.series[j].yaxis] == null)
+                    maxaxis[p.series[j].yaxis] = p.series[j].data[i][1];
+                  else if(p.series[j].data[i][1] > maxaxis[p.series[j].yaxis])
+                    maxaxis[p.series[j].yaxis] = p.series[j].data[i][1];
+                }
+              }
+            }
+          }
+        
+          for(var i = 0;i < p.series.length;i++) {
+            p.series[i].showMarker = cnt[i] <= 100;
+            p.series[i].markerOptions.show = cnt[i] <= 100;
+            p.series[i].markerRenderer.show = cnt[i] <= 100;
+          }
+        
+          for(var ax in maxaxis) {
+            if(maxaxis[ax] != null) {
+              p.axes[ax].max = maxaxis[ax] * p.axes[ax].pad;
+              p.axes[ax].tickInterval = null;
+              p.axes[ax].numberTicks = null;
+              p.axes[ax]._ticks = [];
+            }
+          }
+          p.redraw();
+        };
+      //]]>
+    </script>
+    <div id='menu'>
+      <ul>
+        <li class='first'>
+          <a href='index.html'>General</a>
+        </li>
+        <li>
+          <a href='activity.html'>Activity</a>
+        </li>
+        <li>
+          <a href='authors.html'>Authors</a>
+        </li>
+        <li>
+          <a href='files.html'>Files</a>
+        </li>
+        <li class='last'>
+          <a href='lines.html'>Lines</a>
+        </li>
+      </ul>
+    </div>
+    <div id='content'>
+      <div id='toc'>
+        <h2>
+          <a name='toc'>Blocks</a>
+        </h2>
+        <ul>
+          <li>
+            <a href='#authors'>Top 100 authors</a>
+          </li>
+          <li>
+            <a href='#top_authors_of_year'>Top 20 authors of year</a>
+          </li>
+          <li>
+            <a href='#top_authors_of_yearmonth'>Top 20 authors of year and month</a>
+          </li>
+        </ul>
+      </div>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function() {
+            $("#author_table").tablesorter({sortList: [[1, 1]]});
+          });
+        //]]>
+      </script>
+      <h2 class='blockheader'>
+        <a name='authors'>Top 100 authors</a>
+      </h2>
+      
+      <div id="block-authors" class="blockcontainer">
+      <div class='blocktable'>
+        <table class='tablesorter striped' id='author_table'>
+          <thead>
+            <tr>
+              <th>Author</th>
+              <th>Commits</th>
+              <th>Percent</th>
+              <th>Files added</th>
+              <th>Files deleted</th>
+              <th>Lines added</th>
+              <th>Lines deleted</th>
+              <th>First commit</th>
+              <th>Last commit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>westonplatter</td>
+              <td>3</td>
+              <td>50.00%</td>
+              <td>4</td>
+              <td>2</td>
+              <td>776</td>
+              <td>1105</td>
+              <td>2012-03-14</td>
+              <td>2012-04-13</td>
+            </tr>
+            <tr>
+              <td>weston platter</td>
+              <td>3</td>
+              <td>50.00%</td>
+              <td>91</td>
+              <td>0</td>
+              <td>2038</td>
+              <td>3</td>
+              <td>2012-02-06</td>
+              <td>2012-03-14</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <h2 class='blockheader'>
+        <a name='top_authors_of_year'>Top 20 authors of year</a>
+      </h2>
+      
+      <div id="block-top_authors_of_year" class="blockcontainer">
+      <div class='blocktable'>
+        <table>
+          <thead>
+            <th>Year</th>
+            <th>Author</th>
+            <th>Commits</th>
+            <th>Total</th>
+          </thead>
+          <tbody>
+            <tr class='top'>
+              <td class='yearauthor_top1'>2012</td>
+              <td class='yearauthor_top1'>weston platter</td>
+              <td class='yearauthor_top1'>3 of 6 (50.00%)</td>
+              <td class='yearauthor_top1'>2</td>
+            </tr>
+            <tr class='yearauthor_sub1'>
+              <td class=''></td>
+              <td class=''>westonplatter</td>
+              <td class=''>3 of 6 (50.00%)</td>
+              <td class=''></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function() {
+            $(".yearauthor_sub1").hide();
+            $(".yearauthor_top1").click(function() {
+              $(".yearauthor_sub1").toggle();
+              return false;
+            });
+          });
+        //]]>
+      </script>
+      <h2 class='blockheader'>
+        <a name='top_authors_of_yearmonth'>Top 20 authors of year and month</a>
+      </h2>
+      
+      <div id="block-top_authors_of_yearmonth" class="blockcontainer">
+      <div class='blocktable'>
+        <table>
+          <thead>
+            <th>Year-Month</th>
+            <th>Author</th>
+            <th>Commits</th>
+            <th>Total</th>
+          </thead>
+          <tbody>
+            <tr class='top'>
+              <td class='yearmonthauthor_top1'>2012-04</td>
+              <td class='yearmonthauthor_top1'>westonplatter</td>
+              <td class='yearmonthauthor_top1'>2 of 2 (100.00%)</td>
+              <td class='yearmonthauthor_top1'>1</td>
+            </tr>
+            <tr class='top'>
+              <td class='yearmonthauthor_top2'>2012-03</td>
+              <td class='yearmonthauthor_top2'>weston platter</td>
+              <td class='yearmonthauthor_top2'>1 of 2 (50.00%)</td>
+              <td class='yearmonthauthor_top2'>2</td>
+            </tr>
+            <tr class='yearmonthauthor_sub2'>
+              <td class=''></td>
+              <td class=''>westonplatter</td>
+              <td class=''>1 of 2 (50.00%)</td>
+              <td class=''></td>
+            </tr>
+            <tr class='top'>
+              <td class='yearmonthauthor_top3'>2012-02</td>
+              <td class='yearmonthauthor_top3'>weston platter</td>
+              <td class='yearmonthauthor_top3'>2 of 2 (100.00%)</td>
+              <td class='yearmonthauthor_top3'>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function() {
+            $(".yearmonthauthor_sub1").hide();
+            $(".yearmonthauthor_top1").click(function() {
+              $(".yearmonthauthor_sub1").toggle();
+              return false;
+            });
+          });
+        //]]>
+      </script>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function() {
+            $(".yearmonthauthor_sub2").hide();
+            $(".yearmonthauthor_top2").click(function() {
+              $(".yearmonthauthor_sub2").toggle();
+              return false;
+            });
+          });
+        //]]>
+      </script>
+      <script type='text/javascript'>
+        //<![CDATA[
+          $(document).ready(function() {
+            $(".yearmonthauthor_sub3").hide();
+            $(".yearmonthauthor_top3").click(function() {
+              $(".yearmonthauthor_sub3").toggle();
+              return false;
+            });
+          });
+        //]]>
+      </script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+<h1>Computer Info Entry Site</h1>
+<br/>
+
+<div onClick="location.href='/auth/relay'">
+	<div id="login_links">
+	  <%= link_to(image_tag('/relay.png'), '/auth/relay', class: "loginlink relay" )%>
+	</div>
+	<button onClick="location.href='/auth/relay'" >Click on Relay to Login</button>
+</div>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<p id="notice"><%= notice %></p>

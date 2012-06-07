@@ -1,0 +1,26 @@
+// Place all the styles related to the People controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+a:link
+{
+	color: #036;
+}
+
+a:visited
+{
+	color: #066;
+}
+
+a:hover ,a:active 
+{
+	color: #fff; 
+	background-color: #036; 
+}
+
+.warning 
+{
+	color: #fff;
+	background-color: #036;
+}

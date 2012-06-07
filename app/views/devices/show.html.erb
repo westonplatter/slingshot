@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+
+<!-- ====================================================================== -->
+<!-- LINKS -->
+<%# <%= link_to 'Edit', edit_device_path(@device) %>
+<%# <%= link_to 'Back', devices_path %>
+<%= link_to 'Edit This Device', edit_person_device_path(@person, @device) %> | <%= link_to 'Profile Page', :back %>
+
+
+
+<!-- ====================================================================== -->
+<!-- PERSON -->
+<p>
+  <b>Person:</b>
+  <%= @person.firstname %> <%= @person.lastname %>
+</p>
+
+
+<!-- ====================================================================== -->
+<!-- DEVICE ATTRIBUTES -->
+<hr>
+<h2>Device</h2>
+<% @person.devices.each do |d| %>
+  <button><%= d.name %></button>
+<% end %>
+
+
+<p>
+  <b>Type:</b>
+  <%= @device.name %>
+</p>
+
+<p>
+  <b>Brand:</b>
+  <%= @device.brand %>
+</p>
+
+<p>
+  <b>Model:</b>
+  <%= @device.model %>
+</p>
+
+<p>
+  <b>Color:</b>
+  <%= @device.color %>
+</p>
