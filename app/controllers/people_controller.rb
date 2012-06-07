@@ -61,7 +61,7 @@ class PeopleController < ApplicationController
         format.html { redirect_to @person, notice: 'Your info was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "show" }
         format.json { render json: @person.errors, status: :unprocessable_entity }
       end
     end

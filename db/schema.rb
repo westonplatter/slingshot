@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120520080217) do
+ActiveRecord::Schema.define(:version => 20120607145940) do
 
   create_table "devices", :force => true do |t|
     t.string   "name"
@@ -19,21 +19,28 @@ ActiveRecord::Schema.define(:version => 20120520080217) do
     t.string   "model"
     t.string   "color"
     t.integer  "person_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "computer_username"
+    t.string   "computer_password"
+    t.string   "os"
   end
 
   add_index "devices", ["person_id"], :name => "index_devices_on_person_id"
 
   create_table "people", :force => true do |t|
-    t.string "email"
+    t.string "email",             :default => "", :null => false
     t.string "firstname"
     t.string "lastname"
     t.string "guid"
-    t.string "username"
+    t.string "username",          :default => ""
     t.string "cell"
     t.string "vpn_password"
     t.string "region"
+    t.string "city"
+    t.string "email_client"
+    t.string "faceook_name"
+    t.string "google_plugs_name"
   end
 
   create_table "testers", :force => true do |t|

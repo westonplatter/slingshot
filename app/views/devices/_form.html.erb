@@ -1,7 +1,5 @@
 <!-- form has been revised to be double nested from scaffold form -->
-
-<%= form_for([@person, @device]) do |f| %>
-		
+<%= form_for([@person, @device]) do |f| %>		
 		<div class="field">
 	    <%= f.label :brand %><br/>
 	    <%= f.text_field :brand %>
@@ -14,8 +12,16 @@
 	    <%= f.label :color %><br/>
 	    <%= f.text_field :color %>
 	  </div>
+	  <div class="field">
+	    <%= f.label :Username %>  (if your device has a specific username)<br/>
+	    <%= f.text_field :computer_username %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :password %><br/>
+	    <%= f.text_field :computer_password %>
+	  </div>
 	  <div class="actions">
 	    <%= f.submit %>
 	  </div>
-	
 <% end %>
+

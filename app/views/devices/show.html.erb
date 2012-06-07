@@ -5,7 +5,8 @@
 <!-- LINKS -->
 <%# <%= link_to 'Edit', edit_device_path(@device) %>
 <%# <%= link_to 'Back', devices_path %>
-<%= link_to 'Edit This Device', edit_person_device_path(@person, @device) %> | <%= link_to 'Profile Page', :back %>
+<%= link_to 'My Profile Page', person_path(current_person) %> | 
+<%= link_to 'Edit This Device', edit_person_device_path(@person, @device) %>
 
 
 
@@ -21,27 +22,28 @@
 <!-- DEVICE ATTRIBUTES -->
 <hr>
 <h2>Device</h2>
-<% @person.devices.each do |d| %>
-  <button><%= d.name %></button>
-<% end %>
-
+<button><%= @device.name %></button>
 
 <p>
   <b>Type:</b>
   <%= @device.name %>
-</p>
-
-<p>
+</p><p>
   <b>Brand:</b>
   <%= @device.brand %>
 </p>
-
 <p>
   <b>Model:</b>
   <%= @device.model %>
 </p>
-
 <p>
   <b>Color:</b>
   <%= @device.color %>
+</p>
+<p>
+  <b>Username:</b>
+  <%= @device.computer_username %>
+</p>
+<p>
+  <b>Password:</b>
+  <%= @device.computer_password %>
 </p>
