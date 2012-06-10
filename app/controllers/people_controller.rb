@@ -79,9 +79,11 @@ class PeopleController < ApplicationController
     end
   end
 
-  # pulls the 'vpn' view to update the person's VPN info
+  # TODO implement new VPN model object
+  # added vpn model to decouple vpn password validation so that validation does not
+  # need to occur on non-vpn attributes of the person object.
   def vpn
-    edit # @person = Person.find(params[:id])
+    edit
   end
   
   # pulls the 'location' view to update the person's location info

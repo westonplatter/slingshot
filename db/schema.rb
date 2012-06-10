@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120607145940) do
+ActiveRecord::Schema.define(:version => 20120610173932) do
 
   create_table "devices", :force => true do |t|
     t.string   "name"
@@ -50,5 +50,14 @@ ActiveRecord::Schema.define(:version => 20120607145940) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "vpns", :force => true do |t|
+    t.string   "password"
+    t.integer  "person_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "vpns", ["person_id"], :name => "index_vpns_on_person_id"
 
 end
