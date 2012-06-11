@@ -2,8 +2,8 @@ class DevicesController < ApplicationController
   
   def create
     @person = Person.find(session[:person_id])
-    # @device = @person.devices.create(params[:device])
-    redirect_to person_path(@person)
+    @device = @person.devices.create(params[:device])
+    redirect_to person_path(@person.id)
   end
 
   # DELETE /devices/1
@@ -31,7 +31,7 @@ class DevicesController < ApplicationController
     @device = Device.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html new.html.erb
       format.json { render json: @device }
     end
   end

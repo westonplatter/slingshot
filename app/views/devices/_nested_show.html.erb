@@ -1,4 +1,6 @@
 <h2>Devices</h2>
+
+<h4> Click "Device Description" to add brand/model/etc characteristics for each device</h4>
 <table>
 <tr>
 	<th width="100" align="left"></th>
@@ -9,7 +11,7 @@
 <% @person.devices.each do |device| %>
 	<tr>
 		<td><%= device.name %></td>
-		<td><%= link_to 'Edit Device', [device.person, device],
+		<td><%= link_to 'Device Description', [device.person, device],
 				:get => :show %>
 		</td>
 		<td><%= button_to 'Delete', [device.person, device], 
