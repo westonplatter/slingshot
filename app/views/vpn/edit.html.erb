@@ -112,6 +112,8 @@ function testPassword(password){
 	
 }
 
+// ----------------------------------------------------------------------------
+
 
 </script>
 
@@ -137,11 +139,11 @@ function testPassword(password){
 </p>
 
 
-<%= form_for @person do |f| %>
+<%= form_for([@person, @vpn]) do |f| %>
 	 <div class="field">
 	 		<br/>
 	    <%= "VPN Password" %><br/>
-	    <%= f.text_field :vpn_password, :onChange => "testPassword(this.value);"%>
+	    <%= f.text_field :simple_password, :onChange => "testPassword(this.value);"%>
 	    <br/>
 	    <br/>
 	  </div>
@@ -154,3 +156,7 @@ function testPassword(password){
 
 <%= link_to 'Show', @person %> |
 <%= link_to 'Back', people_path %>  
+
+
+<%= "vpn model object" %><br/>
+<%= @vpn.inspect %>

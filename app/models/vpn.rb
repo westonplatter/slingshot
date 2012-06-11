@@ -1,10 +1,8 @@
 class Vpn < ActiveRecord::Base
   belongs_to :person
-  attr_accessible :password
+  attr_accessible :password, :simple_password
 
-
-  # store VPN info this object rather than in the Person object
-  def find_or_create_by_person_id
-  end
-
+  # validates :simple_password, :format => { 
+  # 	:with => ~/([a-z0-9\~\`\!\@\#\$\%\^\&\*\(\)\_\-\+\[\]\{\}\|\\\;\:\'\"\,\.\/\<\>\?]+)/, 
+  # 	:message => "Password needs to contain 4 described elements" }
 end

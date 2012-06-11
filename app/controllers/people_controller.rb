@@ -12,6 +12,7 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     @person = Person.find(session[:person_id])
+    @vpn = @person.vpn
 
     respond_to do |format|
       format.html # show.html.erb
@@ -79,13 +80,10 @@ class PeopleController < ApplicationController
     end
   end
 
-  # TODO implement new VPN model object
-  # added vpn model to decouple vpn password validation so that validation does not
-  # need to occur on non-vpn attributes of the person object.
-  def vpn
-    edit
-  end
-  
+  # moved into its own MVC object, vpn.rb
+  # def vpn
+  # end
+
   # pulls the 'location' view to update the person's location info
   def region
     edit # @person = Person.find(params[:id])

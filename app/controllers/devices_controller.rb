@@ -2,7 +2,7 @@ class DevicesController < ApplicationController
   
   def create
     @person = Person.find(session[:person_id])
-    @device = @person.devices.create(params[:device])
+    # @device = @person.devices.create(params[:device])
     redirect_to person_path(@person)
   end
 
@@ -45,7 +45,7 @@ class DevicesController < ApplicationController
   # PUT /devices/1
   # PUT /devices/1.json
   def update
-    @person = Person.find(params[:person_id])
+    @person = Person.find(session[:person_id])
     @device = @person.devices.find(params[:id])
 
     respond_to do |format|

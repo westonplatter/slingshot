@@ -6,7 +6,7 @@
   match '/auth/logout',								to: 'accounts#destroy' 
   
   resources :people, :path => "person" do
-    resources :devices
+    resources :devices, :vpn
   end
 
   match 'person/:person_id/vpn',      to: 'people#vpn'

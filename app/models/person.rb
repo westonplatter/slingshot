@@ -3,6 +3,7 @@ class Person < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :firstname, :lastname, :cell, :email, :vpn_password, :region
   has_many :devices
+  has_one :vpn
 
   # the password needs to have
   #  1. a-z characters
@@ -32,7 +33,7 @@ class Person < ActiveRecord::Base
       @person = Person.create!(@attributes, without_protection: true)
     end
 
-    @person
+    return @person
   end
 
 end
