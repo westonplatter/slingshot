@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     @person = Person.find(session[:person_id])
-    @vpn = @person.vpn
+    @vpn = Vpn.find_by_person_id(@person.id)
 
     respond_to do |format|
       format.html # show.html.erb
