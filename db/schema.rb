@@ -29,11 +29,11 @@ ActiveRecord::Schema.define(:version => 20120611041751) do
   add_index "devices", ["person_id"], :name => "index_devices_on_person_id"
 
   create_table "people", :force => true do |t|
-    t.string "email",             :default => "", :null => false
+    t.string "email"
     t.string "firstname"
     t.string "lastname"
     t.string "guid"
-    t.string "username",          :default => ""
+    t.string "username"
     t.string "cell"
     t.string "vpn_password"
     t.string "region"
