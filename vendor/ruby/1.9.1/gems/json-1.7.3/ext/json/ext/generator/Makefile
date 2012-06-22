@@ -12,11 +12,11 @@ ECHO = $(ECHO1:0=@echo)
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /Users/west/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1
-hdrdir = /Users/west/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1
-arch_hdrdir = /Users/west/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/$(arch)
+topdir = /Users/west/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1
+hdrdir = /Users/west/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1
+arch_hdrdir = /Users/west/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/$(arch)
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
-prefix = $(DESTDIR)/Users/west/.rvm/rubies/ruby-1.9.3-p194
+prefix = $(DESTDIR)/Users/west/.rvm/rubies/ruby-1.9.3-p125
 rubylibprefix = $(libdir)/$(RUBY_BASE_NAME)
 exec_prefix = $(prefix)
 vendorhdrdir = $(rubyhdrdir)/vendor_ruby
@@ -87,7 +87,7 @@ RUBY_SO_NAME = ruby.1.9.1
 arch = x86_64-darwin11.3.1
 sitearch = $(arch)
 ruby_version = 1.9.1
-ruby = /Users/west/.rvm/rubies/ruby-1.9.3-p194/bin/ruby
+ruby = /Users/west/.rvm/rubies/ruby-1.9.3-p125/bin/ruby
 RUBY = $(ruby)
 RM = rm -f
 RM_RF = $(RUBY) -run -e rm -- -rf
@@ -124,8 +124,8 @@ STATIC_LIB =
 
 BINDIR        = $(bindir)
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /Users/west/gc/slingshot/vendor/ruby/1.9.1/gems/json-1.7.3/lib$(target_prefix)
-RUBYARCHDIR = /Users/west/gc/slingshot/vendor/ruby/1.9.1/gems/json-1.7.3/lib$(target_prefix)
+RUBYLIBDIR = /Users/west/cru/slingshot/vendor/ruby/1.9.1/gems/json-1.7.3/lib$(target_prefix)
+RUBYARCHDIR = /Users/west/cru/slingshot/vendor/ruby/1.9.1/gems/json-1.7.3/lib$(target_prefix)
 HDRDIR        = $(rubyhdrdir)/ruby$(target_prefix)
 ARCHHDRDIR    = $(rubyhdrdir)/$(arch)/ruby$(target_prefix)
 
