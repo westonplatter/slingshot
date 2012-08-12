@@ -1,3 +1,4 @@
+
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.6'
@@ -20,5 +21,6 @@ group :test, :development do
 	gem 'guard-rspec'
 	gem 'factory_girl_rails'
 	gem 'rails-footnotes', '>= 3.7.5.rc4'
+	gem 'simplecov'
+	gem 'database_cleaner'
 end
-
