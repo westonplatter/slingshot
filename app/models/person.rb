@@ -6,13 +6,9 @@ class Person < ActiveRecord::Base
   attr_accessible :firstname, 
                   :lastname, 
                   :cell, 
-                  :email, 
-                  :vpn_password, 
+                  :email,
                   :region_sending,
                   :region_destination
-
-  # scope :sending, where(region.sending => true)
-  # scope :destination, where(region.destination => true)
 
   # the user's single sign on info is created or read from the database
   def self.find_or_create_person_from_auth(auth_hash)
@@ -32,10 +28,11 @@ class Person < ActiveRecord::Base
   end
 
   def sending
-    self.regions.where(:sending =>  true).first
+    self.regions.where(:sending =>  true).first ? self.regions.where(:sending =>  true).first  : []
   end
 
   def destination
-    self.regions.where(:destination => true).first
+    self.regions.where(:destination => true).first ? self.regions.where(:destination => true).first : []
   end
+
 end

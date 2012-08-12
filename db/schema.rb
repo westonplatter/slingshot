@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120812032035) do
+ActiveRecord::Schema.define(:version => 20120812181830) do
 
   create_table "devices", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(:version => 20120812032035) do
 
   add_index "devices", ["person_id"], :name => "index_devices_on_person_id"
 
+  create_table "events", :force => true do |t|
+    t.time     "event_time"
+    t.boolean  "drop_off"
+    t.integer  "scheduleable_id"
+    t.string   "scheduleable_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "people", :force => true do |t|
     t.string  "email"
     t.string  "firstname"
@@ -36,13 +45,13 @@ ActiveRecord::Schema.define(:version => 20120812032035) do
     t.string  "username"
     t.string  "cell"
     t.string  "vpn_password"
-    t.string  "region_sending"
+    t.integer "region_sending"
     t.string  "city"
     t.string  "email_client"
     t.string  "faceook_name"
     t.string  "google_plugs_name"
     t.boolean "admin"
-    t.string  "region_destination"
+    t.integer "region_destination"
   end
 
   create_table "regions", :force => true do |t|

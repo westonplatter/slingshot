@@ -1,8 +1,8 @@
-<h2>Edit location information</h2>
+<h2>Edit Region Info</h2>
 <%= semantic_form_for @person do |f| %>
   <%= f.inputs do %>
     <%= f.input :region_sending, :as => :select, :collection => Region.where(:sending => true) %>
-    <%= f.input :region_destination, :as => :select, :collection  => Region.where(:destionation => true) %>
+    <%= f.input :region_destination, :as => :select, :collection  => Region.where(:destination => true) %>
   <% end %>
   <%= f.actions %>
 <% end %>

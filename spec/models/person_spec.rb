@@ -7,10 +7,12 @@ describe Person do
 	it 'object check' do
 		@person.should_not be_nil
 	end
-	xit 'link with region' do
-	end
-	xit 'link with vpn' do
-	end
-	xit 'link with devices' do
+	it 'link with vpn' do	
+		pass = 'password'
+		v = @person.build_vpn 
+		v.simple_password = pass
+		v.save!
+
+		@person.vpn.simple_password.should be(pass)
 	end
 end

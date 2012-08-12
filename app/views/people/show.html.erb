@@ -10,36 +10,34 @@
 <br>
 
 
-<hr><!-- VPN SETUP FORM-->
+<hr><!-- VPN INFO -->
 <% if @person.vpn_password.nil? || @person.vpn_password == "" %>
   <div class="warning"><p>No password</p></div>
 <% end %>
-
 <h2>VPN Info</h2>
 <p><b>VPN password:</b> <%= @vpn.simple_password %></p>
-<p><%= link_to 'Edit VPN Password', edit_person_vpn_path(@person) %></p>
-<br>
+<p><%= link_to 'Edit VPN Password', edit_person_vpn_path(@person) %></p><br>
 
 
-
-<hr><!-- IN COUNTRY LOCATION CONFIRMATION -->
+<hr><!-- REGION INFO -->
 <% if @person.region_destination == nil || @person.region_destination == "" %>
-  <div class="warning">
-    <p>No region Info</p>  
-  </div>
+  <div class="warning"><p>No region Info</p></div>
 <% end %>
-
 <h2>Region Info</h2>
-<p><b>Region Sending:</b> <%= @person.region_sending.name %></p>
-<p><b>Region Destination:</b> <%= @person.region_destination.name %></p>
-<%= link_to 'Edit Region', "/person/#{current_person.id}/region" %>
-<br><br>
+<p><b>Sending Region:</b>
+  <% unless @person.region_sending.nil? %>
+    <%= Region.find(@person.region_sending).name %>
+  <% end %>
+</p>
+<p><b>Destination Region:</b>
+  <% unless @person.region_destination.nil? %>
+    <%= Region.find(@person.region_destination).name %>
+  <% end %>
+</p>
+<%= link_to 'Edit Region', "/person/#{current_person.id}/region" %><br><br>
 
-<hr><!-- =================================================================== -->
-<!-- LIST DEVICES -->
+<hr><!-- LIST DEVICES -->
 <%= render "devices/nested_show" %>
-<br><!-- =================================================================== -->
-<!-- ADD DEVICE -->
+<br><!-- ADD DEVICE -->
 <%= render "devices/nested_form" %>
-
 

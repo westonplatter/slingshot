@@ -4,13 +4,15 @@ describe Region do
 	before(:each) do
 		@person = create(:person)
 	end
-	it 'link sending' do
+	it 'link resgions to person' do
 		@person.regions.should be_empty
 
-		@person.regions.create!({name: 'sending', sending: true})
-		@person.regions.create!({name: 'destination', destination: true})
+		s_name = 'sending'
+		d_name = 'destination'
+		s = @person.regions.create!({name: s_name, sending: true})
+		d = @person.regions.create!({name: d_name, destination: true})
 
-		@person.sending.sending.should be(true)
-		@person.destination.destination.should be(true)
+		@person.sending.name.should == s_name
+		@person.destination.name.should == d_name
 	end
 end

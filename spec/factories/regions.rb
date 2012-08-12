@@ -2,8 +2,6 @@
 
 FactoryGirl.define do
   factory :region do
-    name "MyString"
-    sending false
-    destionation ""
+    name "my region"
   end
 end

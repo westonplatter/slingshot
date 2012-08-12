@@ -1,3 +1,4 @@
+
 class RenameRegionColumn < ActiveRecord::Migration
   def up
   	rename_column :people, :region, :region_sending
