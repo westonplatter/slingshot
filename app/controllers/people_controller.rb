@@ -79,13 +79,8 @@ class PeopleController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  # moved into its own MVC object, vpn.rb
-  # def vpn
-  # end
-
-  # pulls the 'location' view to update the person's location info
+ 
   def region
-    edit # @person = Person.find(params[:id])
+    edit
   end
 end

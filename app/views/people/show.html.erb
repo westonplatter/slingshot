@@ -1,80 +1,44 @@
-<h1>
-  <font size="20">Hi <%= @person.firstname %>!</font>
-</h1>
-<hr/>
+<h1><font size="20">Hi <%= @person.firstname %>!</font></h1>
 
-
-<!-- ====================================================================== -->
-<!-- DISPLAY PERSON ATTRIBUTES -->
+<hr><!-- DISPLAY PERSON ATTRIBUTES -->
 <h2>Person Info</h2>
-<p>
-  <b>Firstname:</b>
-  <%= @person.firstname %>
-</p>
-<p>
-  <b>Lastname:</b>
-  <%= @person.lastname %>
-</p>
-<p>
-  <b>Cell:</b>
-  <%= @person.cell %>
-</p>
-<p>
-  <b>Email:</b>
-  <%= @person.email %>
-</p>
-<p>
-  <%= link_to 'Edit My Info', edit_person_path(@person) %>
-</p>
-<br/>
+<p><b>Firstname:</b><%= @person.firstname %></p>
+<p><b>Lastname:</b><%= @person.lastname %></p>
+<p><b>Cell:</b><%= @person.cell %></p>
+<p><b>Email:</b><%= @person.email %></p>
+<p><%= link_to 'Edit My Info', edit_person_path(@person) %></p>
+<br>
 
 
-
-<hr>
-<!-- ====================================================================== -->
-<!-- VPN SETUP FORM-->
-  
+<hr><!-- VPN SETUP FORM-->
 <% if @person.vpn_password.nil? || @person.vpn_password == "" %>
-  <div class="warning">
-    <p>No password</p>
-  </div>
+  <div class="warning"><p>No password</p></div>
 <% end %>
 
 <h2>VPN Info</h2>
-<p>
-  <b>VPN password:</b> <%= @vpn.simple_password %>
-</p>
-<p>
-  <%= link_to 'Edit VPN Password', edit_person_vpn_path(@person) %>
-</p>
-<br/>
+<p><b>VPN password:</b> <%= @vpn.simple_password %></p>
+<p><%= link_to 'Edit VPN Password', edit_person_vpn_path(@person) %></p>
+<br>
 
 
-<hr>
-<!-- ====================================================================== -->
-<!-- IN COUNTRY LOCATION CONFIRMATION -->
-<% if @person.region == nil || @person.region == "" %>
+
+<hr><!-- IN COUNTRY LOCATION CONFIRMATION -->
+<% if @person.region_destination == nil || @person.region_destination == "" %>
   <div class="warning">
     <p>No region Info</p>  
   </div>
 <% end %>
 
 <h2>Region Info</h2>
-<p>
-  <b>Region:</b> <%= @person.region %>
-</p>
+<p><b>Region Sending:</b> <%= @person.region_sending.name %></p>
+<p><b>Region Destination:</b> <%= @person.region_destination.name %></p>
 <%= link_to 'Edit Region', "/person/#{current_person.id}/region" %>
-<br/>
-<br/>
+<br><br>
 
-
-
-<hr>
-<!-- ====================================================================== -->
+<hr><!-- =================================================================== -->
 <!-- LIST DEVICES -->
 <%= render "devices/nested_show" %>
-<br>
-<!-- ====================================================================== -->
+<br><!-- =================================================================== -->
 <!-- ADD DEVICE -->
 <%= render "devices/nested_form" %>
 

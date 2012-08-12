@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120811223432) do
+ActiveRecord::Schema.define(:version => 20120812032035) do
 
   create_table "devices", :force => true do |t|
     t.string   "name"
@@ -36,12 +36,22 @@ ActiveRecord::Schema.define(:version => 20120811223432) do
     t.string  "username"
     t.string  "cell"
     t.string  "vpn_password"
-    t.string  "region"
+    t.string  "region_sending"
     t.string  "city"
     t.string  "email_client"
     t.string  "faceook_name"
     t.string  "google_plugs_name"
     t.boolean "admin"
+    t.string  "region_destination"
+  end
+
+  create_table "regions", :force => true do |t|
+    t.string   "name"
+    t.boolean  "sending"
+    t.boolean  "destination"
+    t.integer  "person_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "testers", :force => true do |t|

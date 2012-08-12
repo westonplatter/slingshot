@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  
   protect_from_forgery
 
   def authenticate
@@ -11,7 +12,9 @@ class ApplicationController < ActionController::Base
   def current_person
     # TODO merge the two return statements into 1
 		return nil unless session[:person_id]
-    return nil if session[:person_id] == ""
+    # return nil if session[:person_id] == ""
+    Person.create!
+
 		@person ||= Person.find(session[:person_id])
 	end
   helper_method :current_person
