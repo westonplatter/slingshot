@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120813003634) do
+ActiveRecord::Schema.define(:version => 20120813005821) do
 
   create_table "area_choices", :force => true do |t|
     t.string   "name"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20120813003634) do
     t.string  "google_plugs_name"
     t.boolean "admin"
     t.integer "region_destination"
+    t.boolean "married"
   end
 
   create_table "regions", :force => true do |t|

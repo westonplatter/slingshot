@@ -8,7 +8,8 @@ class Person < ActiveRecord::Base
                   :cell, 
                   :email,
                   :region_sending,
-                  :region_destination
+                  :region_destination,
+                  :married
 
   # the user's single sign on info is created or read from the database
   def self.find_or_create_person_from_auth(auth_hash)

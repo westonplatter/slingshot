@@ -140,11 +140,11 @@ function testPassword(password){
     Account Group: <%= f.select :account_group, @vpn.options_vpn_account_groups %>
   </div>
   <div class="field">
+    <% if @person.married %><br><b>We suggest this option since you are married.</b><br><% end %>
     Eleazar Option <b>(Mac ONLY!)</b>: 
     <%= f.select :eleazar_account_type, @vpn.options_eleazar_account_types %>
   </div>  
 
-  
   <br><br><div class="actions">
     <%= f.submit %>
   </div>
