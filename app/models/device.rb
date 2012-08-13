@@ -2,7 +2,7 @@ class Device < ActiveRecord::Base
   belongs_to :person
   has_many :events, :as => :scheduleable
 
-  attr_accessible :name
+  attr_accessible :name, :os
 
   def create_dropoff(time)
   	self.events.create(:objective => 'dropoff', :event_time => time)

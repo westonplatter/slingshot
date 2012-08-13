@@ -1,6 +1,11 @@
 <!-- form has been revised to be double nested from scaffold form -->
 <%= form_for([@person, @device]) do |f| %>		
 		<div class="field">
+	    <%= f.label :operating_system %><br/>
+	    <%= f.select :name, ["PC", "Apple/Mac OSX", "Other"] %>
+	  </div>		
+
+		<div class="field">
 	    <%= f.label :brand %><br/>
 	    <%= f.text_field :brand %>
 	  </div>
