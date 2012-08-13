@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120812181830) do
+ActiveRecord::Schema.define(:version => 20120812234533) do
 
   create_table "devices", :force => true do |t|
     t.string   "name"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20120812181830) do
     t.string   "scheduleable_type"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "objective"
   end
 
   create_table "people", :force => true do |t|

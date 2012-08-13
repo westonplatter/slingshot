@@ -9,19 +9,21 @@ describe 'Event DropOff' do
     ipod    = {name: 'ipod'   } and @person.devices.build(ipod)
     
     @person.save!
-    @person.devices.count.should be(3)
 
-    @latop = @person.devices.where(name: 'laptop')
+    @laptop = @person.devices.where(:name => 'laptop').first
   end
   describe 'laptop' do
-    
     it 'create dropoff' do
-      @laptop.events.create_dropoff( time )
-      @laptop.save!
+      @laptop = @person.devices.where(:name => 'laptop').first
+      @laptop.create_dropoff(Time.now)
+      
+      @laptop.get_dropoff.class.should == Event.new.class
     end
     it 'create pickup' do
-      @latop.events.create_pickup( time )
-      @laptop.save!
-    end
+      @laptop = @person.devices.where(:name => 'laptop').first
+      @laptop.create_pickup(Time.now)
+
+      @laptop.get_pickup.class.should == Event.new.class
+    end 
   end
 end
