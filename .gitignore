@@ -3,8 +3,6 @@
 /log/*.log
 /tmp
 
-vendor/ruby
 config/database.yml
 
-vendor/ruby
 vendor/ruby
