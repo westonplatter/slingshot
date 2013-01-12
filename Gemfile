@@ -5,6 +5,7 @@ gem 'mysql2'
 gem 'json'
 gem 'jquery-rails'
 gem 'zeus'
+gem 'devise'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
