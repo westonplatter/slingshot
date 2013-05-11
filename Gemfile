@@ -7,10 +7,12 @@ gem 'jquery-rails'
 gem 'zeus'
 gem 'devise'
 gem 'activeadmin'
+gem 'bootstrap-sass'
+gem 'haml-rails'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails',   '~> 3.2'
+  gem 'coffee-rails', '~> 3.2'
   gem 'uglifier',     '>= 1.0.3'
 end
 
