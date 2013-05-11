@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe AdminUser do
+describe "devices/edit" do
 end

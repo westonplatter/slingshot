@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @device.user_id
+%p
+  %b Name:
+  = @device.name
+%p
+  %b Device type:
+  = @device.device_type
+
+= link_to 'Edit', edit_device_path(@device)
+\|
+= link_to 'Back', devices_path
