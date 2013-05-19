@@ -1,0 +1,2 @@
+ActiveAdmin.register ConfigurationCategory do
+end
