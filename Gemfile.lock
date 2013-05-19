@@ -40,6 +40,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    addressable (2.3.4)
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (3.0.2)
@@ -83,6 +84,7 @@ GEM
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
     has_scope (0.5.1)
+    hashie (2.0.3)
     hike (1.2.2)
     i18n (0.6.1)
     inherited_resources (1.4.0)
@@ -109,6 +111,14 @@ GEM
     mime-types (1.23)
     multi_json (1.7.3)
     mysql2 (0.3.11)
+    nokogiri (1.5.9)
+    omniauth (1.1.4)
+      hashie (>= 1.2, < 3)
+      rack
+    omniauth-cas (0.0.7)
+      addressable (~> 2.2)
+      nokogiri (~> 1.5)
+      omniauth (~> 1.1.0)
     orm_adapter (0.4.0)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
@@ -195,6 +205,7 @@ DEPENDENCIES
   jquery-rails
   json
   mysql2
+  omniauth-cas
   rails (= 3.2.13)
   rspec-rails
   sass-rails (~> 3.2)
