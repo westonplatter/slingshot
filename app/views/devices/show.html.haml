@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @device.user_id
+%p
+  %b Username:
+  = @device.username
+%p
+  %b Password:
+  = @device.password
+%p
+  %b Type:
+  = @device.type
+%p
+  %b Os:
+  = @device.os
+%p
+  %b Status:
+  = @device.status
+%p
+  %b Drop off:
+  = @device.drop_off
+%p
+  %b Pick up:
+  = @device.pick_up
+%p
+  %b Complexity:
+  = @device.complexity
+%p
+  %b Accessories:
+  = @device.accessories
+
+= link_to 'Edit', edit_device_path(@device)
+\|
+= link_to 'Back', devices_path

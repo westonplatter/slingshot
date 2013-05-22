@@ -1,4 +1,7 @@
 Slingshot::Application.routes.draw do
+
+  resources :devices
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
