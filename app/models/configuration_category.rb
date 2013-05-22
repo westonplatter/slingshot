@@ -1,5 +1,0 @@
-class ConfigurationCategory < ActiveRecord::Base
-  attr_accessible :name
-
-  has_many :configurations
-end
