@@ -1,10 +1,10 @@
 class DevicesController < ApplicationController
-  
+  before_filter :authenticate_user!  
 
   # GET /devices
   # GET /devices.json
   def index
-    @devices = Device.all
+    @devices = current_user.devices
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class DevicesController < ApplicationController
   # GET /devices/1
   # GET /devices/1.json
   def show
-    @device = Device.find(params[:id])
+    @device = current_user.devices.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,13 +36,14 @@ class DevicesController < ApplicationController
 
   # GET /devices/1/edit
   def edit
-    @device = Device.find(params[:id])
+    @device = current_user.devices.find(params[:id])
   end
 
   # POST /devices
   # POST /devices.json
   def create
     @device = Device.new(params[:device])
+    @device.user = current_user
 
     respond_to do |format|
       if @device.save
@@ -58,7 +59,7 @@ class DevicesController < ApplicationController
   # PUT /devices/1
   # PUT /devices/1.json
   def update
-    @device = Device.find(params[:id])
+    @device = current_user.devices.find(params[:id])
 
     respond_to do |format|
       if @device.update_attributes(params[:device])
@@ -74,7 +75,7 @@ class DevicesController < ApplicationController
   # DELETE /devices/1
   # DELETE /devices/1.json
   def destroy
-    @device = Device.find(params[:id])
+    @device = current_user.devices.find(params[:id])
     @device.destroy
 
     respond_to do |format|
