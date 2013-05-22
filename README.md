@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/westonplatter/slingshot.png?branch=master)](https://travis-ci.org/westonplatter/slingshot)
+
+[![Dependency Status](https://gemnasium.com/westonplatter/slingshot.png)](https://gemnasium.com/westonplatter/slingshot)
+
 ## Slingshot  
 Rails app to manage IT workflow management.
 
