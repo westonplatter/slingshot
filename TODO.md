@@ -1,11 +1,11 @@
 As a user, I want to 
--NEXT set my VPN password  
+-DONE set my VPN password  
 -DONE set my end destination  
 -DONE input the many devices I need worked on  
 
 
 Authentication,  
-- enable users to __only__ access the app after organization CAS auth confirms their identity.  
+-NEXT enable users to __only__ access the app after organization CAS auth confirms their identity.  
 
 As an admin, I want to,  
 - note when a computer was dropped off.  
