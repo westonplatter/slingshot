@@ -23,4 +23,5 @@ group :development, :test do
   gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'zeus'
+  gem 'guard-rspec'
 end
