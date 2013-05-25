@@ -8,8 +8,8 @@ Slingshot::Application.routes.draw do
   
   # location controller
   # 
-  # Controller is not 100% RESTful. Controller operates so that user has
-  # has_one :location, and location belongs_to :user.
+  # Controller is not 100% RESTful. Controller operates so that
+  # user has_one :location, and location belongs_to :user.
   #
   get    '/location'        => 'locations#show',  as: 'location'
   get    '/location/new'    => 'locations#new',   as: 'new_location'
@@ -20,6 +20,19 @@ Slingshot::Application.routes.draw do
   
   get '/locations/regions/:region_id/cities' => 'locations#get_cities', as: 'cities_region'
 
+
+  # vpn controller
+  # 
+  # Controller is not 100% RESTful. Controller operates so that 
+  # user has_one :vpn, and vpn belongs_to :user
+  # 
+  get     '/vpn'      => 'vpns#show',   as: 'vpn'
+  get     '/vpn/new'  => 'vpns#new',    as: 'new_vpn'  
+  get     '/vpn/edit' => 'vpns#edit',   as: 'edit_vpn'
+  post    '/vpn'      => 'vpns#create'
+  put     '/vpn'      => 'vpns#update'
+  delete  '/vpn'      => 'vpns#destroy'
+  
   
   # ActiveAdmin managed AdminUser
   # 

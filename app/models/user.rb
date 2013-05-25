@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :devices
   has_one :location
+  has_one :vpn
   
   def display_name
     email # || first_name + " " + last_name 

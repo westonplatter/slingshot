@@ -3,6 +3,7 @@ require 'spec_helper'
 describe User do
   it { should have_many :devices }
   it { should have_one :location }
+  it { should have_one :vpn }
   
 
   it 'test factory' do 

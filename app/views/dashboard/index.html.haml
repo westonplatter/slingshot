@@ -9,9 +9,18 @@
 .region
   %h4= link_to 'Location', location_path
   = render partial: 'location', locals: {location: current_user.location}
-  
   .action-links
     - if current_user.location
       = link_to 'Edit Location', edit_location_path
     - else 
       = link_to 'Add Location', new_location_path
+
+.region
+  %h4= link_to 'Vpn Account', vpn_path
+  = render partial: 'vpn', locals: { vpn: current_user.vpn }  
+  .action-links
+    - if current_user.vpn
+      = link_to 'Edit Vpn Account', edit_vpn_path
+    - else
+      = link_to 'Add Vpn Account', new_vpn_path
+

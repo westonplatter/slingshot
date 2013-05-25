@@ -1,5 +1,3 @@
-%table
-  %tr
-    %th Region
-  %tr
-    %td= location.try(:region).try(:name)
+%p
+  %b Region:
+  = location.try(:region).try(:name)
