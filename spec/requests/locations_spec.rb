@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'Devices' do
-  
+describe "Locations" do
+
   before :all do 
     @user = FactoryGirl.create :user
   end
@@ -10,9 +10,9 @@ describe 'Devices' do
     sign_in_user @user
   end
 
-  describe 'GET /devices' do
-    it 'should be success' do
-      get devices_path
+  describe "GET /location/new" do
+    it "should be success" do
+      get new_location_path
       response.status.should be(200)
     end
   end

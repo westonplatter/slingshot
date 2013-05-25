@@ -1,0 +1,7 @@
+%p
+  %b Region:
+  = @location.region.try(:name)
+
+= link_to 'Edit', edit_location_path
+\|
+= link_to 'Dashbaord', dashboard_path

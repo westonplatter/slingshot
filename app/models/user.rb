@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_many :devices
-
+  has_one :location
+  
   def display_name
     email # || first_name + " " + last_name 
   end

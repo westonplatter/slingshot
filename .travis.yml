@@ -11,4 +11,4 @@ before_script:
   - rake db:rollback STEP=1000
   - rake db:migrate
   - rake db:test:prepare
-
+  - rake db:seed

@@ -5,3 +5,13 @@
   = render partial: 'devices', locals: {devices: @devices}
   .action-links 
     = link_to 'Add Device', new_device_path
+
+.region
+  %h4= link_to 'Location', location_path
+  = render partial: 'location', locals: {location: current_user.location}
+  
+  .action-links
+    - if current_user.location
+      = link_to 'Edit Location', edit_location_path
+    - else 
+      = link_to 'Add Location', new_location_path

@@ -1,0 +1,13 @@
+= form_for @location, url: '/location' do |f|
+  - if @location.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@location.errors.count, "error")} prohibited this location from being saved:"
+      %ul
+        - @location.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :region
+    = f.select :region_id, Region.all.collect{ |region| [region.name, region.id] } 
+  .actions
+    = f.submit 'Save'
