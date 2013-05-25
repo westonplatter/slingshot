@@ -1,7 +1,7 @@
 As a user, I want to 
 - set my VPN password  
-- set my end destination  
-- input the many devices I need worked on  
+-NEXT set my end destination  
+-DONE input the many devices I need worked on  
 
 
 Authentication,  
