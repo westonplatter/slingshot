@@ -1,37 +1,8 @@
 %h1 Devices
 
-%table
-  %tr
-    %th User
-    %th Username
-    %th Password
-    %th Kind
-    %th Os
-    %th Status
-    %th Drop off
-    %th Pick up
-    %th Complexity
-    %th Accessories
-    %th
-    %th
-    %th
+= render partial: 'list', locals: {devices: @devices}
 
-  - @devices.each do |device|
-    %tr
-      %td= device.user_id
-      %td= device.username
-      %td= device.password
-      %td= device.kind
-      %td= device.os
-      %td= device.status
-      %td= device.drop_off
-      %td= device.pick_up
-      %td= device.complexity
-      %td= device.accessories
-      %td= link_to 'Show', device
-      %td= link_to 'Edit', edit_device_path(device)
-      %td= link_to 'Destroy', device, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Device', new_device_path
+.action-links
+  = link_to 'New Device', new_device_path
+  \|
+  = link_to 'Dashboard', dashboard_path

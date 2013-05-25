@@ -7,8 +7,11 @@
           %li= msg
 
   .field
-    = f.label :user_id
-    = f.number_field :user_id
+    = f.label :kind
+    = f.text_field :kind
+  .field
+    = f.label :os
+    = f.text_field :os
   .field
     = f.label :username
     = f.text_field :username
@@ -16,23 +19,11 @@
     = f.label :password
     = f.text_field :password
   .field
-    = f.label :kind
-    = f.text_field :kind
-  .field
-    = f.label :os
-    = f.text_field :os
-  .field
-    = f.label :status
-    = f.number_field :status
-  .field
     = f.label :drop_off
     = f.datetime_select :drop_off
   .field
     = f.label :pick_up
     = f.datetime_select :pick_up
-  .field
-    = f.label :complexity
-    = f.number_field :complexity
   .field
     = f.label :accessories
     = f.text_field :accessories

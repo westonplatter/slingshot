@@ -11,3 +11,7 @@ if Rails.env == 'development'
   AdminUser.create(email: 'westonplatter@gmail.com', password: 'secret123', password_confirmation: 'secret123')
   User.create(email: 'westonplatter@gmail.com', password: 'secret123', password_confirmation: 'secret123')
 end
+
+Status.find_or_create_by_value('dropped off')
+Status.find_or_create_by_value('in progress')
+Status.find_or_create_by_value('finished')

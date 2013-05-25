@@ -6,7 +6,7 @@ FactoryGirl.define do
     password "secret"
     kind "computer"
     os "mac 10.8"
-    status 1
+    status factory: :status
     drop_off "2013-05-21 21:07:12"
     pick_up "2013-05-21 21:07:12"
     complexity 1

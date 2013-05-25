@@ -20,25 +20,27 @@ require 'spec_helper'
 
 describe DevicesController do
 
-  before :each do 
-    @request.env['devise.mapping'] = Devise.mappings[:user]
+  before :all do 
     @user = FactoryGirl.create :user
+    @device = FactoryGirl.create(:device, user: @user)
+  end
+
+  before :each do 
+    @request.env['devise.mapping'] = Devise.mappings[:user]  
     sign_in @user
   end
 
   describe 'GET index' do
     it 'assigns all devices as @devices' do
-      device = FactoryGirl.create(:device, user: @user)
       get :index
-      assigns(:devices).should eq([device])
+      assigns(:devices).should eq([@device])
     end
   end
 
   describe 'GET show' do
     it 'assigns the requested device as @device' do
-      device = FactoryGirl.create(:device, user: @user)
-      get :show, id: device.to_param
-      assigns(:device).should eq(device)
+      get :show, id: @device.to_param
+      assigns(:device).should eq(@device)
     end
   end
 
@@ -51,9 +53,8 @@ describe DevicesController do
 
   describe 'GET edit' do
     it 'assigns the requested device as @device' do
-      device = FactoryGirl.create(:device, user: @user)
-      get :edit, id: device.to_param
-      assigns(:device).should eq(device)
+      get :edit, id: @device.to_param
+      assigns(:device).should eq(@device)
     end
   end
 
@@ -107,32 +108,28 @@ describe DevicesController do
       end
 
       it 'assigns the requested device as @device' do
-        device = FactoryGirl.create(:device, user: @user)
-        put :update, {id: device.to_param, device: {} }
-        assigns(:device).should eq(device)
+        put :update, {id: @device.to_param, device: {} }
+        assigns(:device).should eq(@device)
       end
 
       it 'redirects to the device' do
-        device = FactoryGirl.create(:device, user: @user)
-        put :update, {id: device.to_param, device: {} }
-        response.should redirect_to(device)
+        put :update, {id: @device.to_param, device: {} }
+        response.should redirect_to(@device)
       end
     end
 
     describe 'with invalid params' do
       it 'assigns the device as @device' do
-        device = FactoryGirl.create(:device, user: @user)
         # Trigger the behavior that occurs when invalid params are submitted
         Device.any_instance.stub(:save).and_return(false)
-        put :update, {id: device.to_param, device: {  }}
-        assigns(:device).should eq(device)
+        put :update, {id: @device.to_param, device: {  }}
+        assigns(:device).should eq(@device)
       end
 
       it 're-renders the :edit template' do
-        device = FactoryGirl.create(:device, user: @user)
         # Trigger the behavior that occurs when invalid params are submitted
         Device.any_instance.stub(:save).and_return(false)
-        put :update, {id: device.to_param, device: {  }}
+        put :update, {id: @device.to_param, device: {  }}
         response.should render_template('edit')
       end
     end
@@ -140,15 +137,13 @@ describe DevicesController do
 
   describe 'DELETE destroy' do
     it 'destroys the requested device' do
-      device = FactoryGirl.create(:device, user: @user)
       expect {
-        delete :destroy, {id: device.to_param}
+        delete :destroy, {id: @device.to_param}
       }.to change(Device, :count).by(-1)
     end
 
     it 'redirects to the devices list' do
-      device = FactoryGirl.create(:device, user: @user)
-      delete :destroy, {id: device.to_param}
+      delete :destroy, {id: @device.to_param}
       response.should redirect_to(devices_url)
     end
   end

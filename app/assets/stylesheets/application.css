@@ -11,3 +11,16 @@
  *= require_self
  *= require_tree .
  */
+
+h1 {
+  padding-bottom: 1.0%;
+}
+
+.action-links{
+  padding-top: 1.5%;
+}
+
+.region {
+  border: double;
+}
+
