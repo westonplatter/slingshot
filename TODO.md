@@ -1,6 +1,6 @@
 As a user, I want to 
-- set my VPN password  
--NEXT set my end destination  
+-NEXT set my VPN password  
+-DONE set my end destination  
 -DONE input the many devices I need worked on  
 
 
@@ -13,3 +13,5 @@ As an admin, I want to,
 - update User on device status.  
 - keep internal notes on device work.  
 - notify User when device is ready.   
+-DONE create Cities 
+-DONE create Regions
