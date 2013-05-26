@@ -42,8 +42,10 @@ Slingshot::Application.routes.draw do
   
   # Devise managed User
   # 
-  devise_for :users
-  ActiveAdmin.routes(self)
+  # using the relay CAS authentication. see link for more info on setup.
+  # https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
+  # 
+  devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' }
 
 
   # Dashboard controller
