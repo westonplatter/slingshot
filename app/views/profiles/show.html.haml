@@ -1,14 +1,14 @@
 %p 
-  %b Cell Number
+  %b Cell Number:
   = @user.try(:cell)
 
 %p 
-  %b Room Number
+  %b Room Number:
   = @user.try(:room_number)
 
 %p 
-  %b Marriage Status
-  = @user.single ? 'Single' : 'Married'
+  %b Single?:
+  = @user.single
 
 .action-links
   = link_to 'Edit', edit_profile_path
