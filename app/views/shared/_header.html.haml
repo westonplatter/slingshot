@@ -1,0 +1,17 @@
+
+.navbar
+  .navbar-inner
+    %a.brand{href: root_path}= 'Slingshot'
+    %ul.nav
+      %li.active
+        %a{href: root_path}= 'Dashboard'
+      %li
+        %a{href: '#'}= 'Personal Info'
+      %li
+        %a{href: location_path}= 'Location'
+      %li
+        %a{href: devices_path}= 'Devices'
+      %li 
+        %a{href: vpn_path}= 'Vpn Account'
+  .current-user
+    = "Signed in as #{current_user.email}"
