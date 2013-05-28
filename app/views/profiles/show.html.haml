@@ -1,0 +1,16 @@
+%p 
+  %b Cell Number
+  = @user.try(:cell)
+
+%p 
+  %b Room Number
+  = @user.try(:room_number)
+
+%p 
+  %b Marriage Status
+  = @user.single ? 'Single' : 'Married'
+
+.action-links
+  = link_to 'Edit', edit_profile_path
+  \|
+  = link_to 'Dashboard', dashboard_path

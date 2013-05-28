@@ -1,5 +1,10 @@
 Slingshot::Application.routes.draw do
 
+  # personal info 
+  # 
+  get '/profile'      => 'profiles#show', as: 'profile'
+  get '/profile/edit' => 'profiles#edit', as: 'edit_profile'
+  put '/profile'      => 'profiles#update'
   
   # RESTful device controller
   #

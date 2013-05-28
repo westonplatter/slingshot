@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:cas]
   
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
-    :provider, :uid, :first_name, :last_name
+    :provider, :uid, :first_name, :last_name, :cell, :room_number, :single
 
   has_many :devices
   has_one :location
