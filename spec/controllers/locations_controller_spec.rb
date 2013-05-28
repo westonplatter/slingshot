@@ -4,7 +4,7 @@ describe LocationsController do
 
   before :all do 
     @user = FactoryGirl.create :user
-    @location = FactoryGirl.create(:location, user: @user)
+    @location = FactoryGirl.create(:location, user: @user, region: FactoryGirl.create(:region, name: 'region'))
   end
 
   before :each do 
@@ -20,7 +20,7 @@ describe LocationsController do
   describe "GET show" do
     it "assigns the requested location as @location" do
       get :show
-      assigns(:location).should eq(@location)
+      assigns(:region_name).should eq('region')
     end
   end
 

@@ -5,7 +5,7 @@ describe VpnsController do
 
   before :all do 
     @user = FactoryGirl.create :user
-    @vpn = FactoryGirl.create :vpn, user: @user
+    @vpn = FactoryGirl.create :vpn, user: @user, password: 'secret'
   end
 
   before :each do 
@@ -22,7 +22,7 @@ describe VpnsController do
   describe "GET show" do
     it "assigns the requested vpn as @vpn" do
       get :show
-      assigns(:vpn).should eq(@vpn)
+      assigns(:vpn_password).should eq('secret')
     end
   end
 

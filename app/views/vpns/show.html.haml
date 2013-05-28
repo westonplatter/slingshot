@@ -1,7 +1,11 @@
 %p
   %b Password:
-  = @vpn.password
+  = @vpn_password
 
-= link_to 'Edit', edit_vpn_path
+- if @vpn_password
+  = link_to 'Edit', edit_vpn_path
+- else 
+  = link_to 'Create', new_vpn_path
+  
 \|
 = link_to 'Dashboard', dashboard_path

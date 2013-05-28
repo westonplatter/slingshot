@@ -4,7 +4,7 @@ class VpnsController < ApplicationController
   # GET /vpn
   # GET /vpn.json
   def show
-    @vpn = current_user.vpn
+    @vpn_password = current_user.try(:vpn).try(:password)
 
     respond_to do |format|
       format.html # show.html.erb
