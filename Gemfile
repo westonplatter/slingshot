@@ -6,7 +6,7 @@ gem 'json'
 gem 'jquery-rails'
 gem 'zeus'
 gem 'devise'
-gem 'omniauth-cas'
+gem 'omniauth-cas', '1.0.1' # downgraded to 1.0.1 to fix CAS host issues
 gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'activeadmin', github: 'gregbell/active_admin'
