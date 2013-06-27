@@ -13,4 +13,4 @@
       %li 
         %a{href: vpn_path}= 'Vpn Account'
   .current-user
-    = "Signed in as #{current_user.email}"
+    = "Signed in as #{current_user.try(:email)}"
