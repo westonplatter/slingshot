@@ -7,10 +7,10 @@
           %li= msg
 
   .field
-    = f.label :kind
+    = f.label "Kind (EG, laptop, iPad, tablet, cell phone)"
     = f.text_field :kind
   .field
-    = f.label :os
+    = label_tag "Operating System (EG Mac 10.8, Windows 7, Windows 8)"
     = f.text_field :os
   .field
     = f.label :username
@@ -19,13 +19,7 @@
     = f.label :password
     = f.text_field :password
   .field
-    = f.label :drop_off
-    = f.datetime_select :drop_off
-  .field
-    = f.label :pick_up
-    = f.datetime_select :pick_up
-  .field
-    = f.label :accessories
+    = f.label "Accessories (EG, charger, flower covered case)"
     = f.text_field :accessories
   .actions
     = f.submit 'Save'

@@ -5,8 +5,27 @@
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
+
   %body
-    = render partial: '/shared/header'
-    %p#notice= notice
-    = yield
-    -#= render partial: '/shared/footer'
+  -# the #wrap div helps us have a sticky footer
+  #wrap
+    #header.navbar.navbar-static-top
+      .navbar-inner
+        .container
+          = render partial: 'shared/header'
+    #main
+      .container
+        .content
+          .row
+            .span12
+              = render partial: 'shared/messages'
+              
+              -# this is where the page specific content comes through
+              = yield
+              
+    #push
+    -# keep this here. this enables a vertical space to separate #main and #footer
+  
+  #footer
+    .container
+      = render partial: 'shared/footer'
