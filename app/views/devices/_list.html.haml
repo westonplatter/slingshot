@@ -18,15 +18,15 @@
 
   - devices.each do |device|
     %tr
-      %td= device.kind
-      %td= device.os
-      %td= device.username
-      %td= device.password
-      %td= device.status.value
-      %td= device.drop_off
-      %td= device.pick_up
-      %td= device.complexity
-      %td= device.accessories
+      %td= device.try(:kind)
+      %td= device.try(:os)
+      %td= device.try(:username)
+      %td= device.try(:password)
+      %td= device.try(:status).try(:value)
+      %td= device.try(:drop_off)
+      %td= device.try(:pick_up)
+      %td= device.try(:complexity)
+      %td= device.try(:accessories)
       %td= link_to 'Show', device
       %td= link_to 'Edit', edit_device_path(device)
       %td= link_to 'Destroy', device, :method => :delete, :data => { :confirm => 'Are you sure?' }
