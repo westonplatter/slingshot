@@ -4,6 +4,7 @@ rvm:
   - 2.0.0
   
 before_script:
+  - psql -c 'create database slingshot_test' -U postgres
   - cp config/database.sample.yml config/database.yml
   - rake db:create
   - rake db:migrate

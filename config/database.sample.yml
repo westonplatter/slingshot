@@ -1,6 +1,6 @@
 mysql: &defaults
   adapter: postgresql
-  username: root
+  username: postgres
   password:
   pool: 5
   timeout: 5000
