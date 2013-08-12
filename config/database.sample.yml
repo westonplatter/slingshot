@@ -1,5 +1,5 @@
 mysql: &defaults
-  adapter: mysql2
+  adapter: postgresql
   username: root
   password:
   pool: 5

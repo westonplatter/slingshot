@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.14'
-gem 'mysql2'
+gem 'pg'
 gem 'json'
 gem 'jquery-rails'
 gem 'zeus'
