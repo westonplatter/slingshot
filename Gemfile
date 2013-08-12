@@ -25,3 +25,5 @@ group :development, :test do
   gem 'zeus'
   gem 'guard-rspec'
 end
+
+gem 'unicorn'
