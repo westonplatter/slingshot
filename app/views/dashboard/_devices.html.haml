@@ -1,8 +1,6 @@
 %table
   %tr
     %th Kind
-    %th Status
   - @devices.each do |device|
     %tr
       %td= device.kind
-      %td= device.status.try(:value)

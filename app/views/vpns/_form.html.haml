@@ -6,13 +6,17 @@
         - @vpn.errors.full_messages.each do |msg|
           %li= msg
 
-
+  
   %li{ id: 'v_equal_sign' }   Must not contain "=" sign
   %li{ id: 'v_length' }       Must be at least 8 characters long
   %li{ id: 'v_uppercase' }    Must contain uppercase characters (A-Z)
   %li{ id: 'v_lowercase' }    Must contain lowercase characters (a-z)
   %li{ id: 'v_digits' }       Must contain Base 10 digits (0-9)
+  
+  %br
+  
   %li{ id: 'v_symbol' }       Must contain non-alphabetic characters (for example, !@#$%^&*()_+?><:}{")
+  %li                         Cannot contain dictonary words (EG, dog, cat, park, shot)
   
   %br
   
