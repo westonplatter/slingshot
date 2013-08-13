@@ -16,7 +16,7 @@ ActiveAdmin.register User do
       row :last_name
       row :cell
       row :room_number
-      row :single
+      row :married
     end
     
     panel  "Devices" do 
@@ -41,7 +41,7 @@ ActiveAdmin.register User do
       f.input :last_name
       f.input :cell
       f.input :room_number
-      f.input :single, as: :boolean
+      f.input :married, as: :boolean
     end
     
     f.actions
