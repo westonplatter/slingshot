@@ -7,8 +7,6 @@ ActiveAdmin.register Device do
     
     column :kind
     column :os
-    column :drop_off
-    column :pick_up
     column :complexity
     column :accessories  
     
@@ -22,8 +20,6 @@ ActiveAdmin.register Device do
     
     column :kind
     column :os
-    column :drop_off
-    column :pick_up
     column :complexity
     column :accessories  
   end  

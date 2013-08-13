@@ -24,9 +24,9 @@ ActiveAdmin.register User do
         column "Go To Device" do |device|  link_to "Device Info", admin_device_path(device.id) end 
         column "OS"           do |device|  device.os          end
         column "Kind"         do |device|  device.kind        end 
+        column "Username"     do |device|  device.username    end
+        column "Pasword"      do |device|  device.password    end
         column "Status"       do |device|  device.status      end 
-        column "Drop Off"     do |device|  device.drop_off    end 
-        column "Pick Up"      do |device|  device.pick_up     end 
         column "Complexity"   do |device|  device.complexity  end 
       end
     end
