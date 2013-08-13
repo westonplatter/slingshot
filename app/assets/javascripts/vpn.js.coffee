@@ -3,20 +3,20 @@ $ ->
   $(document).ready ->
     value = $('#vpn_password').val()
     
-    validate_equal_sign(value)
-    validate_uppercase(value)  
-    validate_length(value)
-    validate_digits(value)
-    validate_lowercase(value)
-    # validate_symbol(value)
+    validate_equal_sign value
+    validate_uppercase  value  
+    validate_length     value
+    validate_digits     value
+    validate_lowercase  value
+    validate_symbol     value
     
   $('#vpn_password').on 'keyup', (e) ->
-    validate_equal_sign(@value)
-    validate_uppercase(@value)
-    validate_length(@value)
-    validate_digits(@value)
-    validate_lowercase(@value)
-    # validate_symbol(@value)
+    validate_equal_sign @value
+    validate_uppercase  @value
+    validate_length     @value
+    validate_digits     @value
+    validate_lowercase  @value
+    validate_symbol     @value
     
   validate_equal_sign = (string) ->
     html_id = '#v_equal_sign'
@@ -48,7 +48,9 @@ $ ->
   validate_length = (string) ->
     html_id = '#v_length'
     
-    if string.length = 8
+    console.log string
+    
+    if string.length == 8
       $(html_id).css('color', 'green')
     else
       $(html_id).css('color', 'red')
@@ -62,6 +64,11 @@ $ ->
     else
       $(html_id).css('color', 'red')
     
-  # validate_symbol = (string) ->
-  #   html_id = '#v_symbol'
-  #   pattern = new RegExp("!@#$%^&*()_+{}|:\"<>?[];',./")
+  validate_symbol = (string) ->
+    html_id = '#v_symbol'
+    pattern = new RegExp(/!|@|#|\$|%|\^|&|\*|\(|\)|\+|\-|_|\+|=|\{|\}|\[|\]|\;|:|\"|'|<|>|,|\.|\\|\/|\?|~|`|\|/)
+    
+    if pattern.exec(string)
+      $(html_id).css('color', 'green')
+    else
+      $(html_id).css('color', 'red')        
