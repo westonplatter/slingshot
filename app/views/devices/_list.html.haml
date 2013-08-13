@@ -8,9 +8,6 @@
     %th Username
     %th Password
     %th Status
-    %th Drop off
-    %th Pick up
-    %th Complexity
     %th Accessories
     %th
     %th
@@ -23,10 +20,6 @@
       %td= device.try(:username)
       %td= device.try(:password)
       %td= device.try(:status).try(:value)
-      %td= device.try(:drop_off)
-      %td= device.try(:pick_up)
-      %td= device.try(:complexity)
       %td= device.try(:accessories)
       %td= link_to 'Show', device
       %td= link_to 'Edit', edit_device_path(device)
-      %td= link_to 'Destroy', device, :method => :delete, :data => { :confirm => 'Are you sure?' }
