@@ -11,7 +11,7 @@ gem 'devise'
 gem 'omniauth-cas', '1.0.1' # downgraded to 1.0.1 to fix CAS host issues
 gem 'bootstrap-sass'
 gem 'haml-rails'
-gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2'
