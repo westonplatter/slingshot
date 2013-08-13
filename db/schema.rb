@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130813161138) do
+ActiveRecord::Schema.define(:version => 20130813180543) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -122,8 +122,11 @@ ActiveRecord::Schema.define(:version => 20130813161138) do
   create_table "vpns", :force => true do |t|
     t.integer  "user_id"
     t.string   "password"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.boolean  "second_year"
+    t.string   "old_username"
+    t.string   "old_password"
   end
 
 end
