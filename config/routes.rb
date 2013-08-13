@@ -1,28 +1,21 @@
 Slingshot::Application.routes.draw do
 
   # personal info 
-  # 
   get '/profile'      => 'profiles#show', as: 'profile'
   get '/profile/edit' => 'profiles#edit', as: 'edit_profile'
   put '/profile'      => 'profiles#update'
   
   # RESTful device controller
-  #
-  resources :devices
-
+  resources :devices, except: [:destroy]
   
   # location controller
-  #
-  resource :location
+  resource :location, except: [:destroy]
   get '/location/regions/:region_id/cities' => 'locations#get_cities', as: 'cities_region'
 
-
   # vpn controller
-  # 
-  resource :vpn
+  resource :vpn, except: [:destroy]
   
   # ActiveAdmin managed AdminUser
-  # 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -31,17 +24,12 @@ Slingshot::Application.routes.draw do
   # 
   # using the relay CAS authentication. see link for more info on setup.
   # https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
-  # 
   devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' }
 
 
   # Dashboard controller
-  # 
   get 'dashboard/index'
   get 'dashboard' => 'dashboard#index'
 
-  
-  # root controller
-  # 
   root :to => 'dashboard#index'
 end
