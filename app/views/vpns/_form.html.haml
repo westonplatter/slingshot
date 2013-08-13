@@ -24,5 +24,13 @@
     = f.label :password
     = f.text_field :password
   
+  .field
+    = f.label '(2nd year STINTers) Previous VPN username'
+    = f.text_field :old_username
+  
+  .field 
+    = f.label '(2nd year STINTers) Previous VPN password'
+    = f.text_field :old_password
+  
   .actions
     = f.submit 'Save'
