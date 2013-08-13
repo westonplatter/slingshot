@@ -20,6 +20,15 @@ ActiveAdmin.register User do
       row :cell
       row :room_number
       row :married
+      row :non_secure_email
+      row :ccc_account
+      row :facebook
+      row :google_plus
+      row :twitter
+      
+      row "Region" do |user|
+        user.try(:location).try(:region).try(:name)
+      end
       
       row "VPN Password" do |user| 
         user.try(:vpn).try(:password)
