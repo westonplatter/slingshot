@@ -6,8 +6,22 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable, 
          :omniauthable, :omniauth_providers => [:cas]
   
-  attr_accessible :email, :password, :password_confirmation, :remember_me, 
-    :provider, :uid, :first_name, :last_name, :cell, :room_number, :single
+  attr_accessible :email, 
+    :password, 
+    :password_confirmation, 
+    :remember_me, 
+    :provider, 
+    :uid, 
+    :first_name, 
+    :last_name, 
+    :cell, 
+    :room_number, 
+    :married, 
+    :spouse_fullname, 
+    :want_spouse_account, 
+    :ccc_account, 
+    :facebook, 
+    :google_plus
 
   has_many :devices
   has_one :location

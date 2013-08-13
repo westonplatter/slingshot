@@ -7,8 +7,28 @@
   = @user.try(:room_number)
 
 %p 
-  %b Single?:
-  = @user.single
+  %b Marital Status:
+  = @user.married == true ? "Married" : "Single"
+
+%p
+  %b Spouse's fullname:
+  = @user.spouse_fullname
+
+%p 
+  %b Want Spouse Account:
+  = @user.want_spouse_account == true ? 'Yes' : 'No'
+  
+%p 
+  %b CCC Account Number:
+  = @user.ccc_account
+  
+%p 
+  %b Facebook Usernmae:
+  = @user.facebook
+  
+%p 
+  %b Google Plus Username:
+  = @user.google_plus
 
 .action-links
   = link_to 'Edit', edit_profile_path

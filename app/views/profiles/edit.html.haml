@@ -9,11 +9,34 @@
   .field
     = f.label :cell
     = f.text_field :cell
+  
   .field
     = f.label 'Room Number'
     = f.text_field :room_number
+  
+  .field.form-inline
+    = f.label 'Married'
+    = f.check_box :married
+    
   .field
-    = f.label 'Single?'
-    = f.check_box :single
+    = f.label "If married, spouse's fullname"
+    = f.text_field :spouse_fullname
+    
+  .field.form-inline
+    = f.label 'Want to add a spouse account'
+    = f.check_box :want_spouse_account
+    
+  .field
+    = f.label 'CCC Account Number'
+    = f.text_field :ccc_account
+    
+  .field
+    = f.label 'Facebook username'
+    = f.text_field :facebook
+    
+  .field 
+    = f.label 'Google Plus username'
+    = f.text_field :google_plus
+  
   .actions
     = f.submit 'Save'
