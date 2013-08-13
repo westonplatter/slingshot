@@ -1,10 +1,13 @@
 ActiveAdmin.register User do 
 
-  index do 
+  index do |user|
     column :first_name
     column :last_name
     column :email
     column :cell
+    column "Region" do |user|
+      user.try(:location).try(:region).try(:name)
+    end
     
     default_actions
   end
@@ -17,6 +20,16 @@ ActiveAdmin.register User do
       row :cell
       row :room_number
       row :married
+      
+      row "VPN Password" do |user| 
+        user.try(:vpn).try(:password)
+      end
+      row "VPN 2nd Year STINTer Password" do |user|
+        user.try(:vpn).try(:old_password)
+      end
+      row "VPN 2nd Year STINTer Username" do |user|
+        user.try(:vpn).try(:old_username)
+      end
     end
     
     panel  "Devices" do 
@@ -26,7 +39,6 @@ ActiveAdmin.register User do
         column "Kind"         do |device|  device.kind        end 
         column "Username"     do |device|  device.username    end
         column "Pasword"      do |device|  device.password    end
-        column "Status"       do |device|  device.status      end 
         column "Complexity"   do |device|  device.complexity  end 
       end
     end
