@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
     :spouse_fullname, 
     :want_spouse_account, 
     :ccc_account, 
+    :non_secure_email,
     :facebook, 
     :google_plus
 
