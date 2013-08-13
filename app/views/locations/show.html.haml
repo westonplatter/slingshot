@@ -1,11 +1,11 @@
 %p
   %b Region:
-  = @region_name
+  = @location.try(:region).try(:name)
 
-- if @region_name
-  = link_to 'Edit', edit_location_path
+- if @location
+  = link_to 'Edit Location', edit_location_path
 - else
-  = link_to 'Create', new_location_path
+  = link_to 'Add Location', new_location_path
 
 \|
-= link_to 'Dashbaord', dashboard_path
+= link_to 'Go to Dashbaord', dashboard_path

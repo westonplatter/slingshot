@@ -4,7 +4,8 @@ class LocationsController < ApplicationController
   # GET /location
   # GET /location.json
   def show
-    @region_name = current_user.try(:location).try(:region).try(:name)
+    @user = current_user
+    @location = @user.try(:location)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -15,6 +16,7 @@ class LocationsController < ApplicationController
   # GET /location/new
   # GET /location/new.json
   def new
+    @regions = Region.all
     @location = Location.new
 
     respond_to do |format|
@@ -26,6 +28,7 @@ class LocationsController < ApplicationController
   # GET /location/edit
   def edit
     @location = current_user.location
+    @regions = Region.all
   end
 
   # POST /location
