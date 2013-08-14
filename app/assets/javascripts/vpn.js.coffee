@@ -1,7 +1,7 @@
 $ ->
   
   $(document).ready ->
-    $('input[type="submit"]').attr('disabled', 'disabled')
+    $('#device_submit').attr('disabled', 'disabled')
     value = $('#vpn_password').val()
     if value 
       validation_check_all(value)
@@ -30,9 +30,9 @@ $ ->
       if element == true
         sum += 1
         if sum == validation.length
-          $('input[type="submit"]').removeAttr('disabled')
+          $('#device_submit').removeAttr('disabled')
         else
-          $('input[type="submit"]').attr('disabled', 'disabled')
+          $('#device_submit').attr('disabled', 'disabled')
     )
     
   validate_equal_sign = (string, validation) ->
