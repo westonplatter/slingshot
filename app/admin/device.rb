@@ -8,7 +8,6 @@ ActiveAdmin.register Device do
     column :os
     column :complexity
     column :accessories  
-    column :status
     
     default_actions
   end
@@ -21,6 +20,6 @@ ActiveAdmin.register Device do
     column :os
     column :complexity
     column :accessories  
-    column :status
+    
   end  
 end
