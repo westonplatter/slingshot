@@ -67,4 +67,32 @@ ActiveAdmin.register User do
     
     f.actions
   end
+  
+  csv do |user|
+    column :email
+    column :first_name
+    column :last_name
+    column :non_secure_email
+    column :cell
+    column :room_number
+    column :married
+    column :spouse_fullname
+    column :ccc_account
+    column :facebook
+    column :google_plus
+    column :twitter
+    
+    column "VPN Password" do |user| 
+      user.try(:vpn).try(:password)
+    end
+    column "VPN 2nd Year STINTer Password" do |user|
+      user.try(:vpn).try(:old_password)
+    end
+    column "VPN 2nd Year STINTer Username" do |user|
+      user.try(:vpn).try(:old_username)
+    end
+    column "Region" do |user|
+      user.try(:location).try(:region).try(:name)
+    end  
+  end
 end
