@@ -1,8 +1,17 @@
 %p
   %b Password:
-  = @vpn_password
+  = @vpn.try(:password)
 
-- if @vpn_password
+%p
+  %b (2nd year STINTers) Old Password:
+  = @vpn.try(:old_password)
+
+%p
+  %b (2nd year STINTers) Old Username:
+  = @vpn.try(:old_username)
+
+
+- unless @vpn.nil?
   = link_to 'Edit', edit_vpn_path
 - else 
   = link_to 'Create', new_vpn_path
