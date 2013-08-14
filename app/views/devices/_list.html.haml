@@ -19,7 +19,7 @@
       %td= device.try(:os)
       %td= device.try(:username)
       %td= device.try(:password)
-      %td= device.try(:status).try(:value)
+      %td= device.try(:status)
       %td= device.try(:accessories)
       %td= link_to 'Show', device
       %td= link_to 'Edit', edit_device_path(device)
