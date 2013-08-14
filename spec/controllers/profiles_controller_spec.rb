@@ -30,7 +30,7 @@ describe ProfilesController do
       user = @user.reload
 
       user.cell.should == 'new_cell'
-      user.email.should_not == 'new@example.com'
+      user.email.should == 'new@example.com'
     end
   end
 

@@ -23,9 +23,5 @@ describe LocationsController do
       put("/location").should route_to("locations#update")
     end
 
-    it "routes to #destroy" do
-      delete("/location").should route_to("locations#destroy")
-    end
-
   end
 end

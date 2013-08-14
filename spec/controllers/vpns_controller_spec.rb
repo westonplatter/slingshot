@@ -22,7 +22,7 @@ describe VpnsController do
   describe "GET show" do
     it "assigns the requested vpn as @vpn" do
       get :show
-      assigns(:vpn_password).should eq('secret')
+      assigns(:vpn).should eq(@vpn)
     end
   end
 
@@ -73,52 +73,6 @@ describe VpnsController do
     #     response.should render_template("new")
     #   end
     # end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested vpn" do
-        Vpn.any_instance.should_receive(:update_attributes).with({ "password" => "MyString" })
-        put :update, {vpn: { "password" => "MyString" }}
-      end
-
-      it "assigns the requested vpn as @vpn" do
-        put :update, {vpn: valid_attributes}
-        assigns(:vpn).should eq(@vpn)
-      end
-
-      it "redirects to the vpn" do
-        put :update, {vpn: valid_attributes}
-        response.should redirect_to(vpn_path)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the vpn as @vpn" do
-        Vpn.any_instance.stub(:save).and_return(false)
-        put :update, {vpn: { "password" => "invalid value" }}
-        assigns(:vpn).should eq(@vpn)
-      end
-
-      it "re-renders the 'edit' template" do
-        Vpn.any_instance.stub(:save).and_return(false)
-        put :update, {vpn: { "password" => "invalid value" }}
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested vpn" do
-      expect {
-        delete :destroy
-      }.to change(Vpn, :count).by(-1)
-    end
-
-    it "redirects to dashboard url" do
-      delete :destroy
-      response.should redirect_to(dashboard_url)
-    end
   end
 
 end

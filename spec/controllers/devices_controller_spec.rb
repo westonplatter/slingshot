@@ -12,8 +12,6 @@ describe DevicesController do
     sign_in @user
   end
 
-
-
   describe 'GET index' do
     it 'assigns all devices as @devices' do
       get :index
@@ -116,19 +114,6 @@ describe DevicesController do
         put :update, {id: @device.to_param, device: {  }}
         response.should render_template('edit')
       end
-    end
-  end
-
-  describe 'DELETE destroy' do
-    it 'destroys the requested device' do
-      expect {
-        delete :destroy, {id: @device.to_param}
-      }.to change(Device, :count).by(-1)
-    end
-
-    it 'redirects to the devices list' do
-      delete :destroy, {id: @device.to_param}
-      response.should redirect_to(devices_url)
     end
   end
 

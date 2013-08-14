@@ -27,9 +27,5 @@ describe DevicesController do
       put("/devices/1").should route_to("devices#update", :id => "1")
     end
 
-    it "routes to #destroy" do
-      delete("/devices/1").should route_to("devices#destroy", :id => "1")
-    end
-
   end
 end

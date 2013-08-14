@@ -23,9 +23,5 @@ describe VpnsController do
       put("/vpn").should route_to("vpns#update")
     end
 
-    it "routes to #destroy" do
-      delete("/vpn").should route_to("vpns#destroy")
-    end
-
   end
 end

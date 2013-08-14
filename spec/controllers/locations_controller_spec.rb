@@ -20,7 +20,7 @@ describe LocationsController do
   describe "GET show" do
     it "assigns the requested location as @location" do
       get :show
-      assigns(:region_name).should eq('region')
+      assigns(:location).should eq(@location)
     end
   end
 
@@ -104,19 +104,6 @@ describe LocationsController do
         put :update, location: {  }
         response.should render_template("edit")
       end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested location" do
-      expect {
-        delete :destroy
-      }.to change(Location, :count).by(-1)
-    end
-
-    it "redirects to the locations list" do
-      delete :destroy
-      response.should redirect_to(dashboard_url)
     end
   end
 

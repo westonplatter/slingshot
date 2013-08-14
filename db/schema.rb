@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20130814012425) do
     t.string   "password"
     t.string   "kind"
     t.string   "os"
-    t.integer  "status"
+    t.string   "status"
     t.datetime "drop_off"
     t.datetime "pick_up"
     t.integer  "complexity"
