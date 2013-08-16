@@ -1,6 +1,5 @@
 ActiveAdmin.register User do 
-  config.per_page = 150
-  
+
   index do |user|
     column :first_name
     column :last_name

@@ -1,6 +1,4 @@
 ActiveAdmin.register AdminUser do     
-  config.per_page = 150
-  
   index do                            
     column :email                     
     column :current_sign_in_at        

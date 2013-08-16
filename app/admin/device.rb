@@ -1,5 +1,4 @@
 ActiveAdmin.register Device do 
-  config.per_page = 150
   
   index do 
     column "Owner Email" do |device|
