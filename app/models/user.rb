@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
     :ccc_account, 
     :non_secure_email,
     :facebook, 
-    :google_plus
+    :google_plus, 
+    :city_id
     
   has_many :devices
   has_one :location

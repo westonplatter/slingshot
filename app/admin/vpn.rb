@@ -4,32 +4,64 @@ ActiveAdmin.register Vpn do
     column "Owner Email" do |device|
       device.user.email
     end
+    column "City" do |user|
+      user.city ? "#{user.city.name}" : nil
+    end
+    column "Region" do |user|
+      user.city ? "#{user.city.region.name}" : nil
+    end
     column :password
     column :old_username
     column :old_password
-    column "Region" do |vpn|
-      vpn.user.try(:location).try(:region).try(:name)
-    end
     
     default_actions
   end
   
+  form do |f|
+    f.inputs "Details" do
+      f.input :user
+      f.input :password
+      f.input :old_password
+      f.input :old_username
+    end
+    
+    f.actions
+  end
+  
+  show do |vpn|
+    attributes_table do 
+      row :user
+      row 'City' do |vpn|
+        vpn.user.city
+      end
+      row 'Region' do |vpn|
+        vpn.user.city.try(:region)
+      end
+      row :password
+      row :old_username
+      row :old_password
+    end
+  end
+  
   csv do 
-    column "Owner Email" do |device|
-      device.user.email
+    column "Owner Email" do |vpn|
+      vpn.user.email
     end
-    column "First name" do |device|
-      device.user.first_name
+    column "First name" do |vpn|
+      vpn.user.first_name
     end
-    column "Last name" do |device|
-      device.user.last_name
+    column "Last name" do |vpn|
+      vpn.user.last_name
     end
     column :password
     column :old_username
     column :old_password
+    column "City" do |vpn|
+      vpn.user.city.try(:name)
+    end  
     column "Region" do |vpn|
-      vpn.user.try(:location).try(:region).try(:name)
-    end
+      vpn.user.city.try(:region).try(:name)
+    end  
   end  
 end
 

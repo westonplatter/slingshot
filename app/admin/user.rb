@@ -5,9 +5,8 @@ ActiveAdmin.register User do
     column :last_name
     column :email
     column :cell
-    column "Region" do |user|
-      user.try(:location).try(:region).try(:name)
-    end
+    column 'City' do |user| user.city.name end
+    column'Row'   do |user| user.city.region.name if user.city.region end
     
     default_actions
   end
@@ -26,8 +25,11 @@ ActiveAdmin.register User do
       row :google_plus
       row :twitter
       
-      row "Region" do |user|
-        user.try(:location).try(:region).try(:name)
+      row 'City' do |user|
+        user.city
+      end
+      row 'Row' do |user|
+        user.city.try(:region)
       end
       
       row "VPN Password" do |user| 
@@ -63,6 +65,7 @@ ActiveAdmin.register User do
       f.input :cell
       f.input :room_number
       f.input :married, as: :boolean
+      f.input :city
     end
     
     f.actions
@@ -91,8 +94,11 @@ ActiveAdmin.register User do
     column "VPN 2nd Year STINTer Username" do |user|
       user.try(:vpn).try(:old_username)
     end
+    column "City" do |user|
+      user.city.try(:name)
+    end  
     column "Region" do |user|
-      user.try(:location).try(:region).try(:name)
+      user.city.try(:region).try(:name)
     end  
   end
 end
