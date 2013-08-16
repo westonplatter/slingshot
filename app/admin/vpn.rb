@@ -1,14 +1,14 @@
 ActiveAdmin.register Vpn do 
   
   index do 
-    column "Owner Email" do |device|
-      device.user.email
+    column "Owner Email" do |vpn|
+      vpn.user.email
     end
-    column "City" do |user|
-      user.city ? "#{user.city.name}" : nil
+    column "City" do |vpn|
+      vpn.user.city.name if vpn.user.city
     end
-    column "Region" do |user|
-      user.city ? "#{user.city.region.name}" : nil
+    column "Region" do |vpn|
+      vpn.user.city.try(:region).try(:name)
     end
     column :password
     column :old_username
@@ -57,7 +57,7 @@ ActiveAdmin.register Vpn do
     column :old_username
     column :old_password
     column "City" do |vpn|
-      vpn.user.city.try(:name)
+      vpn.user.city.name if vpn.user.city
     end  
     column "Region" do |vpn|
       vpn.user.city.try(:region).try(:name)
