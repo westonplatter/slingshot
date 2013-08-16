@@ -45,7 +45,7 @@ ActiveAdmin.register Vpn do
   
   csv do 
     column "Owner Email" do |vpn|
-      vpn.user.email
+      vpn.user.try(:email)
     end
     column "First name" do |vpn|
       vpn.user.first_name
