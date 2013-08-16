@@ -1,5 +1,6 @@
 ActiveAdmin.register Region do 
-
+  config.per_page = 150
+  
   index do 
     column :name
     

@@ -1,4 +1,5 @@
 ActiveAdmin.register Vpn do 
+  config.per_page = 150
   
   index do 
     column "Email" do |vpn|
