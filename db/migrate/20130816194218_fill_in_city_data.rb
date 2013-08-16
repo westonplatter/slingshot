@@ -7,6 +7,7 @@ class FillInCityData < ActiveRecord::Migration
     User.find_each do |user|
       unless user.location.nil?
         user.city = user.location.region.cities.find_by_name('(none)')
+        user.save
       end
     end    
   end
