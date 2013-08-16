@@ -5,8 +5,12 @@ ActiveAdmin.register User do
     column :last_name
     column :email
     column :cell
-    column 'City' do |user| user.city.name end
-    column'Row'   do |user| user.city.region.name if user.city.region end
+    column 'City' do |user| 
+      user.city.try(:name) 
+    end
+    column'Region' do |user| 
+      user.city.try(:region).try(:name) if user.city.try(:region)
+    end
     
     default_actions
   end
