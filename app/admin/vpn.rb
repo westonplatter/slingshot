@@ -1,11 +1,18 @@
 ActiveAdmin.register Vpn do 
   
   index do 
-    column "Owner Email" do |vpn|
+    column "Email" do |vpn|
       vpn.user.email
     end
+    column 'First name' do |vpn|
+      vpn.user.first_name
+    end
+    
+    column 'Last name' do |vpn|
+      vpn.user.last_name
+    end 
     column "City" do |vpn|
-      vpn.user.city.name if vpn.user.city
+      vpn.user.try(:city).try(:name)
     end
     column "Region" do |vpn|
       vpn.user.city.try(:region).try(:name)
