@@ -4,6 +4,8 @@ describe User do
   it { should have_many :devices }
   it { should have_one :location }
   it { should have_one :vpn }
+  it { should belong_to :city }
+  
   
 
   it 'test factory' do 

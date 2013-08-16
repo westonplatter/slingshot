@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130814012425) do
+ActiveRecord::Schema.define(:version => 20130816190457) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20130814012425) do
     t.string   "google_plus"
     t.string   "non_secure_email"
     t.string   "twitter"
+    t.integer  "city_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
     
   has_many :devices
   has_one :location
+  belongs_to :city
   has_one :vpn
   
   def self.find_or_create_from_cas(auth_hash)
