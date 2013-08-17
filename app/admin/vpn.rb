@@ -1,14 +1,20 @@
 ActiveAdmin.register Vpn do 
   
+  controller do
+    def scoped_collection
+      resource_class.includes(user: [city: [:region]]) # prevents N+1 queries to your database
+    end
+  end 
+  
   index do 
-    column "Email" do |vpn|
+    column 'Email', sortable: 'users.email' do |vpn|
       vpn.user.email
     end
-    column 'First name' do |vpn|
+    column 'First name', sortable: 'users.first_name' do |vpn|
       vpn.user.first_name
     end
     
-    column 'Last name' do |vpn|
+    column 'Last name', sortable: 'users.last_name' do |vpn|
       vpn.user.last_name
     end 
     column "City" do |vpn|
