@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.2'
 
-gem 'rails', '3.2.16'
 gem 'pg'
 gem 'json'
 gem 'jquery-rails'
 gem 'zeus'
 gem 'devise'
 gem 'omniauth-cas', '1.0.1' # downgraded to 1.0.1 to fix CAS host issues
+gem 'rails', '3.2.19'
 gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'activeadmin'
