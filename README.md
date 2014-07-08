@@ -15,13 +15,18 @@ Testing
 Production  
 --------------
 Production environment requires, 
-+ Ruby 1.9.3  
-+ Mysql  
++ Ruby 2.1.2
++ Postgresql
 
 Contributions  
---------------
-
+-------------
+1. Talk with project maintainers (Weston or Johnmark) before starting work. We may already have the same features in motion.
+2. Have work described in a Github issue.
+3. Fork master. 
+4. Code it up and write tests if possible
+5. Ensure that existing tests pass.
+6. Create Github pull request.
 
 License  
 --------------
-Copyright 2012-2013, Weston Platter. MIT License.  
+Copyright 2012-2014, Weston Platter. MIT License.  
