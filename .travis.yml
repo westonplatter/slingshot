@@ -1,13 +1,10 @@
 language: ruby
 
 rvm:
-  - 2.0.0
+  - 2.1.2
 
 before_script:
   - cp config/database.sample.yml config/database.yml
   - bundle exec rake db:create
   - bundle exec rake db:migrate
-  - bundle exec rake db:rollback STEP=1000
-  - bundle exec rake db:migrate
-  - bundle exec rake db:test:prepare
   - bundle exec rake db:seed
